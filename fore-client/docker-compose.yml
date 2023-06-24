@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  dev-dash-client:
+    container_name: dev-dash-client
+    build: .
+    env_file:
+      - ./.env
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 3002:3002
+    dns:
+      - 8.8.8.8
+    environment:
+      - CHOKIDAR_USEPOLLING=true
