@@ -4,8 +4,8 @@ import Timer from "../modules/Timer";
 import Notepad from "../modules/Notepad";
 import Todo from "../modules/Todo";
 import { gql, useQuery } from "@apollo/client";
-import { NoteColors, NoteResponseDTO } from "../types/devDash";
-import { TodoStatuses, TodoResponseDTO } from "../types/devDash";
+import { NoteColors, NoteResponseDTO } from "../types/fore";
+import { TodoStatuses, TodoResponseDTO } from "../types/fore";
 
 const MainPanel = (): React.ReactElement => {
     const [ notes, setNotes ] = useState<Array<NoteResponseDTO>>([]);

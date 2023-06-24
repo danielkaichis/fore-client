@@ -1,7 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { Flex } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { TodoRequestDTO, TodoResponseDTO, TodoStatuses } from '../types/devDash';
+import { TodoRequestDTO, TodoResponseDTO, TodoStatuses } from '../types/fore';
 
 type TodoProps = {
     todos: TodoResponseDTO[];

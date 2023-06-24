@@ -1,8 +1,8 @@
 import { Button, Tab, TabList, TabPanel, TabPanels, Tabs, Textarea } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
-import { NoteRequestDTO, NoteResponseDTO } from "../types/devDash";
-import { NoteColors } from "../types/devDash";
+import { NoteRequestDTO, NoteResponseDTO } from "../types/fore";
+import { NoteColors } from "../types/fore";
 import { BsFillCircleFill } from "react-icons/bs";
 
 type NotepadProps = {
