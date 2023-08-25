@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  dev-dash-client:
-    container_name: dev-dash-client
+  fore-client:
+    container_name: fore-client
     build: .
     env_file:
       - ./.env
