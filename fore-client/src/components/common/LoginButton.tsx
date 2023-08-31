@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAuth, GithubAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { Tooltip, Flex, MenuButton, useBoolean, Icon, Menu } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 
@@ -16,17 +16,16 @@ const LoginButton = ({
     const [ authorizing, setAuthorizing ] = useState(false);
     const [ hovered, setHovered ] = useBoolean(false);
     const [ loggedIn, setLoggedIn ] = useState(auth.currentUser != null ? true : false);
-    const provider = new GithubAuthProvider();
-    provider.addScope("repo");
+    const provider = new GoogleAuthProvider();
 
-    const signInWithGithub = () => {
+    const signInWithGoogle = () => {
         setAuthorizing(true);
         signInWithPopup(auth, provider).then(result => {
-            // TODO: use github credential 
-            const credential = GithubAuthProvider.credentialFromResult(result);
+            // TODO: find way to not use local storage 
+            const credential = GoogleAuthProvider.credentialFromResult(result);
             if (credential && credential.accessToken) {
                 const token = credential.accessToken;
-                localStorage.setItem("github-credential", token);
+                localStorage.setItem("google-credential", token);
             }
             localStorage.setItem("userID", result.user.uid);
         }).catch(error => {
@@ -44,7 +43,7 @@ const LoginButton = ({
             });
         } else {
             try {
-                signInWithGithub();
+                signInWithGoogle();
                 setLoggedIn(true);
             } catch(error) {
                 console.log(error);

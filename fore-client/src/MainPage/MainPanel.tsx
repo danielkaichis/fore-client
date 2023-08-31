@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
-import Timer from "../modules/Timer";
 import Notepad from "../modules/Notepad";
 import Todo from "../modules/Todo";
 import { gql, useQuery } from "@apollo/client";
@@ -76,17 +75,6 @@ const MainPanel = (): React.ReactElement => {
             >
                 <Todo todos={todos}/>
             </GridItem>
-
-            <GridItem 
-                backgroundColor="#ffffff" 
-                borderRadius="2xl" 
-                boxShadow="md"
-                colSpan={1} 
-                rowSpan={1}
-            >
-                Profile
-            </GridItem>
-
             <GridItem 
                 backgroundColor="#ffffff" 
                 borderRadius="2xl" 
@@ -95,36 +83,6 @@ const MainPanel = (): React.ReactElement => {
                 rowSpan={2}
             >
                 {!loading && <Notepad notes={notes} />}
-            </GridItem>
-
-            <GridItem 
-                backgroundColor="#ffffff" 
-                borderRadius="2xl" 
-                boxShadow="md" 
-                colSpan={2} 
-                rowSpan={2}
-            >
-                Github
-            </GridItem>
-
-            <GridItem
-                backgroundColor="#ffffff" 
-                borderRadius="2xl" 
-                boxShadow="md" 
-                colSpan={1}
-                rowSpan={1}
-            >
-                <Timer />
-            </GridItem>
-
-            <GridItem 
-                backgroundColor="#ffffff"
-                borderRadius="2xl"
-                boxShadow="md" 
-                colSpan={2}
-                rowSpan={1}
-            >
-                Other
             </GridItem>
 
         </Grid >
