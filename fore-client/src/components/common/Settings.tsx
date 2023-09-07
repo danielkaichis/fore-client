@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Menu, MenuButton, Icon, useBoolean, Tooltip } from "@chakra-ui/react";
+import { Flex, Menu, MenuButton, Icon, useBoolean, Tooltip, Link } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 
 type SettingProps = {
@@ -25,6 +25,7 @@ const Settings = ({
                 mt={2}
             >
                 <Menu placement="right">
+                    {/* settings can have some sort of modal/pop-up behavior that will go over whatever is on screen */}
                     <MenuButton w="100%" _hover={{ color: "black" }}>
                         <Flex color={active || hovered ? "white" : "#9f9f9f"}>
                             <span>

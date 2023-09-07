@@ -1,17 +1,20 @@
 import React from "react";
 import { Flex, Menu, MenuButton, Icon, useBoolean, Tooltip } from "@chakra-ui/react";
 import { IconType } from "react-icons";
+import { Link } from "react-router-dom";
 
 type NavItemProps = {
-    icon: IconType,
+    icon: IconType
     tooltip: string
     active: boolean
+    redirectTo: string
 }
 
 const NavItem = ({
     icon,
     tooltip,
-    active
+    active,
+    redirectTo,
 }: NavItemProps): React.ReactElement => {
     const [hovered, setHovered] = useBoolean(false);
 
@@ -25,13 +28,15 @@ const NavItem = ({
                 alignItems="center"
             >
                 <Menu placement="right">
-                    <MenuButton py="5%" w="100%">
-                        <Flex color={active || hovered ? "white" : "#9f9f9f"}>
-                            <span>
-                                <Icon mt="0.9vh" as={icon} fontSize="xl"/>
-                            </span>
-                        </Flex>
-                    </MenuButton>
+                    <Link to={redirectTo}>
+                        <MenuButton py="5%" w="100%">
+                            <Flex color={active || hovered ? "white" : "#9f9f9f"}>
+                                <span>
+                                        <Icon mt="0.9vh" as={icon} fontSize="xl"/>
+                                </span>
+                            </Flex>
+                        </MenuButton>
+                    </Link>
                 </Menu>
             </Flex>
         </Tooltip>

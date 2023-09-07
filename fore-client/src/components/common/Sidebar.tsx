@@ -3,9 +3,11 @@ import { Avatar, Flex } from '@chakra-ui/react';
 import NavItem from './NavItem';
 import LoginButton from './LoginButton';
 import Settings from './Settings';
-import { FaHome, FaCog } from 'react-icons/fa';
-import { FiUser } from 'react-icons/fi';
-import { BiCodeAlt, BiLogInCircle } from 'react-icons/bi';
+import { FaHome, FaCog, FaBook } from 'react-icons/fa';
+import { TbGolf } from 'react-icons/tb';
+import { MdSportsGolf } from 'react-icons/md';
+import { GiPodiumWinner } from 'react-icons/gi';
+import { BiLogInCircle } from 'react-icons/bi';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const Sidebar = (): React.ReactElement => {
@@ -47,9 +49,11 @@ const Sidebar = (): React.ReactElement => {
                 alignItems="center"
                 as="nav"
             >
-                <NavItem icon={FaHome} tooltip="Dashboard" active={false}/>
-                <NavItem icon={FiUser} tooltip="Profile" active={true} />
-                <NavItem icon={BiCodeAlt} tooltip="Code" active={false}/>
+                <NavItem icon={FaHome} tooltip="Dashboard" active={false} redirectTo='/'/>
+                <NavItem icon={FaBook} tooltip="Equipment" active={true} redirectTo='/equipment'/>
+                <NavItem icon={MdSportsGolf} tooltip="Scores" active={false} redirectTo='/scores'/>
+                <NavItem icon={TbGolf} tooltip="Courses" active={false} redirectTo='/courses'/>
+                <NavItem icon={GiPodiumWinner} tooltip="PGA Leaderboard" active={false} redirectTo='/leaderboard'/>
             </Flex>
 
             <Flex

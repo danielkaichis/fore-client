@@ -28,6 +28,7 @@ const LoginButton = ({
                 localStorage.setItem("google-credential", token);
             }
             localStorage.setItem("userID", result.user.uid);
+            setAuthorizing(false);
         }).catch(error => {
             console.log(error);
             setAuthorizing(false);
@@ -35,6 +36,7 @@ const LoginButton = ({
     };
 
     const handleAuthAction = () => {
+        if (authorizing) return;
         if (loggedIn) {
             signOut(auth).then(() => {
                 setLoggedIn(false);
