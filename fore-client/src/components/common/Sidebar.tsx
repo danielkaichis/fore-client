@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Avatar, Flex } from '@chakra-ui/react';
-import NavItem from './NavItem';
-import LoginButton from './LoginButton';
-import Settings from './Settings';
+
 import { FaHome, FaCog, FaBook } from 'react-icons/fa';
 import { TbGolf } from 'react-icons/tb';
 import { MdSportsGolf } from 'react-icons/md';
 import { GiPodiumWinner } from 'react-icons/gi';
 import { BiLogInCircle } from 'react-icons/bi';
+
+import { Settings, LoginButton, NavItem } from './index';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const Sidebar = (): React.ReactElement => {
@@ -15,12 +15,7 @@ const Sidebar = (): React.ReactElement => {
     const [loggedIn, setLoggedIn] = React.useState(auth.currentUser != null ? true : false);
     const [userPhotoURL, setUserPhotoURL] = React.useState('');
 
-    useEffect(() => {
-        AuthCheck();
-        return () => AuthCheck();
-    }, [auth]);
-
-    const AuthCheck = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
         if (user) {
             setLoggedIn(true);
             if (user.photoURL) {
@@ -28,6 +23,7 @@ const Sidebar = (): React.ReactElement => {
             }
         } else {
             setLoggedIn(false);
+            setUserPhotoURL('');
         }
     });
 
@@ -64,9 +60,9 @@ const Sidebar = (): React.ReactElement => {
                 pb={4}
             >
                 <Flex alignItems="center" flexDir="column">
-                    <LoginButton icon={BiLogInCircle} loggedIn={auth.currentUser != null ? true : false}/>
+                    <LoginButton icon={BiLogInCircle} loggedIn={loggedIn}/>
                     <Settings icon={FaCog} tooltip="Settings" active={false}/>
-                    <Avatar mt={4} size="sm" src={loggedIn ? userPhotoURL : ""} />
+                    <Avatar mt={4} size="sm" bg="gray.400" src={userPhotoURL} />
                 </Flex>
             </Flex>
         </Flex>

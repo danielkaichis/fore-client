@@ -20,19 +20,8 @@ const LoginButton = ({
 
     const signInWithGoogle = () => {
         setAuthorizing(true);
-        signInWithPopup(auth, provider).then(result => {
-            // TODO: find way to not use local storage 
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            if (credential && credential.accessToken) {
-                const token = credential.accessToken;
-                localStorage.setItem("google-credential", token);
-            }
-            localStorage.setItem("userID", result.user.uid);
-            setAuthorizing(false);
-        }).catch(error => {
-            console.log(error);
-            setAuthorizing(false);
-        });
+        signInWithPopup(auth, provider).catch(error => console.log(error));
+        setAuthorizing(false);
     };
 
     const handleAuthAction = () => {

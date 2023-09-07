@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Unauthorized from "../components/common/Unauthorized";
+
 
 const AuthRoute = (props: { children: any; }): React.ReactElement => {
     const { children } = props;
     const auth  = getAuth();
     const [isAuthorized, setIsAuthorized] = useState(false);
-    
-    useEffect(() => {
-        AuthCheck();
-        return () => AuthCheck();
-    }, [auth]);
 
-    const AuthCheck = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
         if (user) {
             setIsAuthorized(true);
         } else {
@@ -19,7 +16,7 @@ const AuthRoute = (props: { children: any; }): React.ReactElement => {
         }
     });
     
-    if (!isAuthorized) return <p>You are not logged in.</p>;
+    if (!isAuthorized) return <Unauthorized />;
     
     return <>{children}</>;
 };

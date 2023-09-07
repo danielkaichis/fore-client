@@ -1,14 +1,16 @@
 import React from "react";
 import { Flex } from "@chakra-ui/react";
-import Sidebar from "../components/common/Sidebar";
-import AuthRoute from "../components/common/AuthRoute";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import AuthRoute from "../auth/AuthRoute";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Dashboard from "../modules/Dashboard";
-import Equipment from "../modules/Equipment";
-import Scores from "../modules/Scores";
-import Courses from "../modules/Courses";
-import Leaderboard from "../modules/Leaderboard";
+import { 
+    Dashboard, 
+    Equipment,
+    Scores,
+    Courses,
+    Leaderboard,
+    Sidebar
+} from "./index";
 
 const Home = (): React.ReactElement => {
     return (

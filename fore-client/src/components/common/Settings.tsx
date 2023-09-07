@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Menu, MenuButton, Icon, useBoolean, Tooltip, Link } from "@chakra-ui/react";
+import { Flex, Menu, MenuButton, Icon, useBoolean, Tooltip } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 
 type SettingProps = {
