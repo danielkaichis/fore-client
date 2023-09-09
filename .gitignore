@@ -132,3 +132,5 @@ fore-api/fore-d2820-firebase-adminsdk-gzklu-b305e4fa7c.json
 
 #node modules
 **/node_modules
+fore-client/node_modules/*
+fore-api/node_modules/*
