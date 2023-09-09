@@ -1,7 +1,17 @@
-import React, { useState } from "react";
-import { Center, Icon, Tooltip, Modal, 
-    ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, 
-    ModalBody, ModalFooter, Button,  } from "@chakra-ui/react";
+import React from "react";
+import { 
+    Center, 
+    Icon, 
+    Tooltip, 
+    Modal, 
+    ModalOverlay, 
+    ModalContent, 
+    ModalHeader, 
+    ModalCloseButton, 
+    ModalBody, 
+    ModalFooter, 
+    Button
+} from "@chakra-ui/react";
 import { FaCog } from "react-icons/fa";
 import { useDisclosure } from "@chakra-ui/hooks";
 

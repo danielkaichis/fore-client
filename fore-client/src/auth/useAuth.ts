@@ -4,7 +4,7 @@ import { useState } from 'react';
 const useAuth = () => {
     const auth = getAuth();
     const [ authorizing, setAuthorizing ] = useState(false);
-    const [ loggedIn, setLoggedIn ] = useState(auth.currentUser != null);
+    const [ loggedIn, setLoggedIn ] = useState(!!auth.currentUser);
     const provider = new GoogleAuthProvider();
 
     const signInWithGoogle = () => {

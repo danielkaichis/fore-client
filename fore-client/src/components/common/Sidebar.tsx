@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Avatar, Flex, Center } from '@chakra-ui/react';
 
-import { FaHome, FaCog, FaBook } from 'react-icons/fa';
+import { FaHome, FaBook } from 'react-icons/fa';
 import { TbGolf } from 'react-icons/tb';
 import { MdSportsGolf } from 'react-icons/md';
 import { GiPodiumWinner } from 'react-icons/gi';
-import { BiLogInCircle } from 'react-icons/bi';
 
-import { Settings, AuthButton, NavItem } from './index';
+import { NavItem, Settings, AuthButton } from './index';
 import { onAuthStateChanged } from 'firebase/auth';
 import useAuth from '../../auth/useAuth';
 
