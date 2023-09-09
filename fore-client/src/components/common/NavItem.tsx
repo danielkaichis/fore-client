@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Menu, MenuButton, Icon, useBoolean, Tooltip } from "@chakra-ui/react";
+import { Icon, useBoolean, Tooltip, Center } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 import { Link } from "react-router-dom";
 
@@ -19,27 +19,20 @@ const NavItem = ({
     const [hovered, setHovered] = useBoolean(false);
 
     return(
-        <Tooltip hasArrow label={tooltip} bg='black' color='white' placement="right" borderRadius={4} h="3vh" my="auto">
-            <Flex
-                onMouseEnter={setHovered.on} 
-                onMouseLeave={setHovered.off}
-                mt={30}
-                flexDir="column"
-                alignItems="center"
-            >
-                <Menu placement="right">
-                    <Link to={redirectTo}>
-                        <MenuButton py="5%" w="100%">
-                            <Flex color={active || hovered ? "white" : "#9f9f9f"}>
-                                <span>
-                                        <Icon mt="0.9vh" as={icon} fontSize="xl"/>
-                                </span>
-                            </Flex>
-                        </MenuButton>
-                    </Link>
-                </Menu>
-            </Flex>
-        </Tooltip>
+        <Link to={redirectTo}>
+            <Tooltip hasArrow label={tooltip} bg='black' color='white' placement="right" borderRadius={5}>
+                <Center onMouseEnter={setHovered.on} 
+                    onMouseLeave={setHovered.off}
+                    flexDir="column"
+                    mt={8}
+                    mb={4}
+                    alignItems="center" 
+                    color={active || hovered ? "white" : "#9f9f9f"}
+                >
+                    <Icon as={icon} fontSize="2xl"/>
+                </Center>
+            </Tooltip>
+        </Link>
     );
 };
 

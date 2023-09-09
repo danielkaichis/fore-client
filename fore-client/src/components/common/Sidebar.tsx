@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Flex } from '@chakra-ui/react';
+import { Avatar, Flex, Center } from '@chakra-ui/react';
 
 import { FaHome, FaCog, FaBook } from 'react-icons/fa';
 import { TbGolf } from 'react-icons/tb';
@@ -40,7 +40,7 @@ const Sidebar = (): React.ReactElement => {
             justifyContent="space-between"
             backgroundColor="#1f1f1f"
         >
-            <Flex
+            <Center
                 flexDir="column"
                 alignItems="center"
                 as="nav"
@@ -50,21 +50,14 @@ const Sidebar = (): React.ReactElement => {
                 <NavItem icon={MdSportsGolf} tooltip="Scores" active={false} redirectTo='/scores'/>
                 <NavItem icon={TbGolf} tooltip="Courses" active={false} redirectTo='/courses'/>
                 <NavItem icon={GiPodiumWinner} tooltip="PGA Leaderboard" active={false} redirectTo='/leaderboard'/>
-            </Flex>
+            </Center>
 
-            <Flex
-                p="5%"
-                flexDir="column"
-                w="100%"
-                alignItems="center"
-                pb={4}
-            >
-                <Flex alignItems="center" flexDir="column">
-                    <LoginButton icon={BiLogInCircle} loggedIn={loggedIn}/>
-                    <Settings icon={FaCog} tooltip="Settings" active={false}/>
-                    <Avatar mt={4} size="sm" bg="gray.400" src={userPhotoURL} />
-                </Flex>
-            </Flex>
+
+            <Center alignItems="center" flexDir="column" pb={4}>
+                <LoginButton icon={BiLogInCircle} loggedIn={loggedIn}/>
+                <Settings icon={FaCog} tooltip="Settings" active={false}/>
+                <Avatar size="sm" bg="gray.400" src={userPhotoURL} />
+            </Center>
         </Flex>
     );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import { Tooltip, Flex, MenuButton, useBoolean, Icon, Menu } from "@chakra-ui/react";
+import { Tooltip, Center, IconButton, useBoolean, Icon } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 
 
@@ -49,24 +49,20 @@ const LoginButton = ({
     }, [auth.currentUser]);
 
     return(
-        <Tooltip hasArrow label={loggedIn ? "Sign Out" : "Login"} bg='black' color='white' placement="right" borderRadius={4} h="3vh" my="auto">
-            <Flex
+        <Tooltip hasArrow label={loggedIn ? "Sign Out" : "Login"} bg='black' color='white' placement="right" borderRadius={4}>
+            <Center
                 onMouseEnter={setHovered.on} 
                 onMouseLeave={setHovered.off}
-                mt={30}
-                flexDir="column"
                 alignItems="center"
             >
-                <Menu placement="right">
-                    <MenuButton w="100%" py="5%" onClick={handleAuthAction}>
-                        <Flex color={hovered ? "white" : "#9f9f9f"}>
-                            <span>
-                                <Icon mt="0.9vh" as={icon} fontSize="xl"/>
-                            </span>
-                        </Flex>
-                    </MenuButton>
-                </Menu>
-            </Flex>
+                <Icon
+                onClick={handleAuthAction} 
+                aria-label="login" 
+                as={icon} 
+                fontSize="2xl"
+                color={hovered ? "white" : "#9f9f9f"}
+                />
+            </Center>
         </Tooltip>
     );
 };
