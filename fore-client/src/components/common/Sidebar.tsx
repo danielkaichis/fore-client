@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar, Flex, Center } from '@chakra-ui/react';
 
 import { FaHome, FaCog, FaBook } from 'react-icons/fa';
@@ -7,29 +7,24 @@ import { MdSportsGolf } from 'react-icons/md';
 import { GiPodiumWinner } from 'react-icons/gi';
 import { BiLogInCircle } from 'react-icons/bi';
 
-import { Settings, LoginButton, NavItem } from './index';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { Settings, AuthButton, NavItem } from './index';
+import { onAuthStateChanged } from 'firebase/auth';
+import useAuth from '../../auth/useAuth';
 
 const Sidebar = (): React.ReactElement => {
-    const auth = getAuth();
-    const [loggedIn, setLoggedIn] = React.useState(auth.currentUser != null ? true : false);
-    const [userPhotoURL, setUserPhotoURL] = React.useState('');
+    const { auth }  = useAuth();
+    const [userPhotoURL, setUserPhotoURL] = useState('');
 
     onAuthStateChanged(auth, (user) => {
-        if (user) {
-            setLoggedIn(true);
-            if (user.photoURL) {
-                setUserPhotoURL(user.photoURL);
-            }
+        if (user?.photoURL) {
+            setUserPhotoURL(user.photoURL);
         } else {
-            setLoggedIn(false);
             setUserPhotoURL('');
         }
     });
 
     return (
-        <Flex
-            position="sticky"
+        <Flex position="sticky"
             mx="10px"
             height="95vh"
             my="2.5vh"
@@ -40,22 +35,17 @@ const Sidebar = (): React.ReactElement => {
             justifyContent="space-between"
             backgroundColor="#1f1f1f"
         >
-            <Center
-                flexDir="column"
-                alignItems="center"
-                as="nav"
-            >
-                <NavItem icon={FaHome} tooltip="Dashboard" active={false} redirectTo='/'/>
-                <NavItem icon={FaBook} tooltip="Equipment" active={true} redirectTo='/equipment'/>
-                <NavItem icon={MdSportsGolf} tooltip="Scores" active={false} redirectTo='/scores'/>
-                <NavItem icon={TbGolf} tooltip="Courses" active={false} redirectTo='/courses'/>
-                <NavItem icon={GiPodiumWinner} tooltip="PGA Leaderboard" active={false} redirectTo='/leaderboard'/>
+            <Center flexDir="column" alignItems="center" as="nav">
+                <NavItem icon={FaHome} tooltip="Dashboard" redirectTo='/'/>
+                <NavItem icon={FaBook} tooltip="Equipment" redirectTo='/equipment'/>
+                <NavItem icon={MdSportsGolf} tooltip="Scores" redirectTo='/scores'/>
+                <NavItem icon={TbGolf} tooltip="Courses" redirectTo='/courses'/>
+                <NavItem icon={GiPodiumWinner} tooltip="PGA Leaderboard" redirectTo='/leaderboard'/>
             </Center>
 
-
             <Center alignItems="center" flexDir="column" pb={4}>
-                <LoginButton icon={BiLogInCircle} loggedIn={loggedIn}/>
-                <Settings icon={FaCog} tooltip="Settings" active={false}/>
+                <AuthButton />
+                <Settings />
                 <Avatar size="sm" bg="gray.400" src={userPhotoURL} />
             </Center>
         </Flex>
