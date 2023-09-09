@@ -1,3 +1,2 @@
 .env
-/fore-client/node_modules/
-/fore-api/node_modules/
+node_modules/
