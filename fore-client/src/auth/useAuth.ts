@@ -3,8 +3,7 @@ import { useState } from 'react';
 
 const useAuth = () => {
     const auth = getAuth();
-    const [ authorizing, setAuthorizing ] = useState(false);
-    const [ loggedIn, setLoggedIn ] = useState(!!auth.currentUser);
+    const [ authorizing, setAuthorizing ] = useState<boolean>(false);
     const provider = new GoogleAuthProvider();
 
     const signInWithGoogle = () => {
@@ -15,16 +14,11 @@ const useAuth = () => {
 
     const handleAuthAction = () => {
         if (authorizing) return;
-        if (loggedIn) {
-            signOut(auth).then(() => {
-                setLoggedIn(false);
-            }, error => {
-                console.log(error);
-            });
+        if (auth.currentUser != null) {
+            signOut(auth).catch(error => console.log(error));
         } else {
             try {
                 signInWithGoogle();
-                setLoggedIn(true);
             } catch(error) {
                 console.log(error);
             }
@@ -32,9 +26,9 @@ const useAuth = () => {
     }
 
     return {
-        auth: auth,
-        loggedIn: loggedIn,
-        handleAuthAction: handleAuthAction,
+        auth,
+        loggedIn: auth.currentUser !== null,
+        handleAuthAction,
     }
 }
 

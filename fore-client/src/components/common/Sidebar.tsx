@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, Flex, Center } from '@chakra-ui/react';
 
 import { FaHome, FaBook } from 'react-icons/fa';
@@ -14,13 +14,15 @@ const Sidebar = (): React.ReactElement => {
     const { auth }  = useAuth();
     const [userPhotoURL, setUserPhotoURL] = useState('');
 
-    onAuthStateChanged(auth, (user) => {
-        if (user?.photoURL) {
-            setUserPhotoURL(user.photoURL);
-        } else {
-            setUserPhotoURL('');
-        }
-    });
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user?.photoURL) {
+                setUserPhotoURL(user.photoURL);
+            } else {
+                setUserPhotoURL('');
+            }
+        });
+    }, [auth]);
 
     return (
         <Flex position="sticky"

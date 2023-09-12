@@ -9,7 +9,7 @@ const AuthRoute = (props: { children: any; }): React.ReactElement => {
     const [isAuthorized, setIsAuthorized] = useState(loggedIn);
 
     onAuthStateChanged(auth, (user) => {
-        if (user) {
+        if (user != null) {
             setIsAuthorized(true);
         } else {
             setIsAuthorized(false);

@@ -1,34 +1,34 @@
-import React from "react";
-import { Flex } from "@chakra-ui/react";
-import AuthRoute from "../auth/AuthRoute";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from 'react';
+import { Flex } from '@chakra-ui/react';
+import AuthRoute from '../auth/AuthRoute';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { 
-    Dashboard, 
-    Equipment,
-    Scores,
-    Courses,
-    Leaderboard,
-    Sidebar
-} from "./index";
+import {
+  Dashboard,
+  Equipment,
+  Scores,
+  Courses,
+  Leaderboard,
+  Sidebar
+} from './index';
 
 const Home = (): React.ReactElement => {
-    return (
+  return (
         <Flex backgroundColor="#fafbfc">
-                <BrowserRouter>
-                    <Sidebar />
-                    <AuthRoute>
-                        <Routes>
-                            <Route path="/" element={<Dashboard />}/>
-                            <Route path="/equipment" element={<Equipment />} />
-                            <Route path="/scores" element={<Scores />} />
-                            <Route path="/courses" element={<Courses />} />
-                            <Route path="/leaderboard" element={<Leaderboard />} />
-                        </Routes>
-                    </AuthRoute>
-                </BrowserRouter>
+			<BrowserRouter>
+				<Sidebar />
+				<AuthRoute>
+					<Routes>
+						<Route path="/" element={<Dashboard />}/>
+						<Route path="/equipment" element={<Equipment />} />
+						<Route path="/scores" element={<Scores />} />
+						<Route path="/courses" element={<Courses />} />
+						<Route path="/leaderboard" element={<Leaderboard />} />
+					</Routes>
+				</AuthRoute>
+			</BrowserRouter>
         </Flex>
-    );
+  );
 };
 
-export default Home;
+export default Home
