@@ -14,7 +14,10 @@ import {
 
 const Home = (): React.ReactElement => {
   return (
-        <Flex backgroundColor="#fafbfc">
+        <Flex backgroundColor="#fafbfc"
+			  px="10px"
+			  py="2.5vh"
+		>
 			<BrowserRouter>
 				<Sidebar />
 				<AuthRoute>
