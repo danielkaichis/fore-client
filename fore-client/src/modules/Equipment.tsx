@@ -1,5 +1,5 @@
 import React from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { Wrap, WrapItem } from "@chakra-ui/react";
 
 import Club from "../components/equipment/Club";
@@ -69,9 +69,11 @@ const Equipment = (): React.ReactElement => {
     // get club data from server
     
     return (
+        // TODO: change to use a grid with 14 slots, and put each club into the slots in increasing order,
+        // IE put first club returned in index 0, then 1, etc.
         <Wrap>
             { clubs.map((club) => (
-				<WrapItem key={club.name}>
+				<WrapItem key={club.name} px={2}>
                 	<Club key={club.name} club={club}/>
 				</WrapItem>
             ))}
