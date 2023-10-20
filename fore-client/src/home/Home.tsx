@@ -9,25 +9,29 @@ import {
   Scores,
   Courses,
   Leaderboard,
-  Sidebar
+  Sidebar,
 } from './index';
+import Canvas from './Canvas';
 
 const Home = (): React.ReactElement => {
   return (
         <Flex backgroundColor="#fafbfc"
-			  px="10px"
+			  px={2.5}
 			  py="2.5vh"
+			  className="home"
 		>
 			<BrowserRouter>
 				<Sidebar />
 				<AuthRoute>
-					<Routes>
-						<Route path="/" element={<Dashboard />}/>
-						<Route path="/equipment" element={<Equipment />} />
-						<Route path="/scores" element={<Scores />} />
-						<Route path="/courses" element={<Courses />} />
-						<Route path="/leaderboard" element={<Leaderboard />} />
-					</Routes>
+					<Canvas>
+						<Routes>
+							<Route path="/" element={<Dashboard />}/>
+							<Route path="/equipment" element={<Equipment />} />
+							<Route path="/scores" element={<Scores />} />
+							<Route path="/courses" element={<Courses />} />
+							<Route path="/leaderboard" element={<Leaderboard />} />
+						</Routes>
+					</Canvas>
 				</AuthRoute>
 			</BrowserRouter>
         </Flex>

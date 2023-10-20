@@ -33,6 +33,7 @@ const Sidebar = (): React.ReactElement => {
             flexDir="column"
             justifyContent="space-between"
             backgroundColor="#1f1f1f"
+            className="sidebar"
         >
             <Center flexDir="column" alignItems="center" as="nav">
                 <NavItem icon={FaHome} tooltip="Dashboard" redirectTo='/'/>

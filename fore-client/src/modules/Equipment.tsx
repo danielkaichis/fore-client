@@ -1,8 +1,9 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import React from "react";
-import Club from "../components/equipment/Club";
-import { ClubType } from "../types/equipTypes";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Wrap, WrapItem } from "@chakra-ui/react";
+
+import Club from "../components/equipment/Club";
+import { ClubType } from "../types/fore";
 
 const Equipment = (): React.ReactElement => {
     const clubs: ClubType[] = [
@@ -26,42 +27,42 @@ const Equipment = (): React.ReactElement => {
             name: '8-iron',
             value: 8
         },
-		// {
-        //     name: '9-iron',
-        //     value: 9
-        // },
-		// {
-        //     name: '50 wedge',
-        //     value: 50
-        // },
-		// {
-        //     name: '55 wedge',
-        //     value: 55
-        // },
-		// {
-        //     name: '60 wedge',
-        //     value: 60
-        // },
-		// {
-        //     name: 'pitching wedge',
-        //     value: 2
-        // },
-		// {
-        //     name: '3-wood',
-        //     value: 3
-        // },
-		// {
-        //     name: 'hybrid',
-        //     value: 10
-        // },
-		// {
-        //     name: 'driver',
-        //     value: 11
-        // },
-		// {
-        //     name: 'putter',
-        //     value: 1
-        // },
+		{
+            name: '9-iron',
+            value: 9
+        },
+		{
+            name: '50 wedge',
+            value: 50
+        },
+		{
+            name: '55 wedge',
+            value: 55
+        },
+		{
+            name: '60 wedge',
+            value: 60
+        },
+		{
+            name: 'pitching wedge',
+            value: 2
+        },
+		{
+            name: '3-wood',
+            value: 3
+        },
+		{
+            name: 'hybrid',
+            value: 10
+        },
+		{
+            name: 'driver',
+            value: 11
+        },
+		{
+            name: 'putter',
+            value: 1
+        },
     ];
     const auth = getAuth();
     
