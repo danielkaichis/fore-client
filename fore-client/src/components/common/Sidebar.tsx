@@ -29,7 +29,7 @@ const Sidebar = (): React.ReactElement => {
             height="95vh"
             boxShadow="10px 4px 12px 0 rgba(0, 0, 0, 0.05)"
             borderRadius="20px"
-            w={"75px"}
+            w="75px"
             flexDir="column"
             justifyContent="space-between"
             backgroundColor="#1f1f1f"

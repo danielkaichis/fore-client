@@ -1,10 +1,10 @@
-import { Box, Center } from '@chakra-ui/react';
+import { Box, Center, calc } from '@chakra-ui/react';
 import React from 'react';
 
 const Canvas = (props: { children: any; }): React.ReactElement => {
     const children = props;
     return (
-        <Box className="canvas" width="100%" pl={4} pr={1.5}>
+        <Box className="canvas" pl={4} pr={1.5} width="calc(100% - 75px)">
             {children.children}
         </Box>
     );

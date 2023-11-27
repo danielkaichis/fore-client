@@ -15,8 +15,7 @@ import Canvas from './Canvas';
 
 const Home = (): React.ReactElement => {
   return (
-        <Flex backgroundColor="#fafbfc"
-			  px={2.5}
+        <Flex px={2.5}
 			  py="2.5vh"
 			  className="home"
 		>

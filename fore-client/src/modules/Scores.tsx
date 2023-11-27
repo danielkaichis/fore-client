@@ -101,7 +101,7 @@ const Scores = (): React.ReactElement => {
     ];
 
     return (
-        <TableContainer verticalAlign="top">
+        <TableContainer verticalAlign="top" height="100%">
             <Table variant="simple">
                 <Thead>
                     <Tr>
@@ -118,7 +118,7 @@ const Scores = (): React.ReactElement => {
                 </Thead>
                 <Tbody>
                 { games.map((game: Game) => (
-                        <Tr>
+                        <Tr key={game.score + game.date.toUTCString()}>
                             <Td>{game.date.toUTCString()}</Td>
                             <Td>{game.course}</Td>
                             <Td>{game.teeBox}</Td>

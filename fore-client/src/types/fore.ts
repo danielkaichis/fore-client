@@ -7,6 +7,14 @@ export type ClubType = {
     value: number;
 }
 
+export type ClubResponseDTO = {
+    brand: string;
+    model: string;
+    clubType: string;
+    flex: string;
+    shaft: string;
+}
+
 export type Address = {
     streetNumber: string;
     street: string;

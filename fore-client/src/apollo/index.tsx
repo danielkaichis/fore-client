@@ -3,7 +3,7 @@ import { SERVER_URL } from "../utils/secrets";
 import { onError } from '@apollo/client/link/error';
 import useAuth from "../auth/useAuth";
 
-const httpLink = new HttpLink({ uri: '/graphql' });
+const httpLink = new HttpLink({ uri: SERVER_URL + '/graphql' });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
