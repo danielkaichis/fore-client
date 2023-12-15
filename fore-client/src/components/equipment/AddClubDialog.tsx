@@ -13,13 +13,7 @@ type AddClubProps = {
 const AddClubDialog = ({show, close}: AddClubProps): React.ReactElement => {
     const { auth } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
-    let club: Club = {
-        brand: "",
-        model: "",
-        clubType: "",
-        flex: "",
-        shaft: ""
-    };
+
     const ADD_CLUB = gql`
         mutation addClub($userID: String!, $club: ClubRequestDTO!) {
             addClub(userID: $userID, club: $club) {
@@ -44,26 +38,26 @@ const AddClubDialog = ({show, close}: AddClubProps): React.ReactElement => {
             <ModalCloseButton />
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <ModalBody>
-                            <FormControl isRequired>
-                                <FormLabel>Brand</FormLabel>
-                                <Input placeholder='Taylormade' {...register("brand")}/>
-                            </FormControl>
-                            <FormControl isRequired>
-                                <FormLabel>Model</FormLabel>
-                                <Input placeholder='TS2' {...register("model")}/>
-                            </FormControl>
-                            <FormControl isRequired>
-                                <FormLabel>Club Type</FormLabel>
-                                <Input placeholder='3-Wood' {...register("clubType")}/>
-                            </FormControl>
-                            <FormControl isRequired>
-                                <FormLabel>Flex</FormLabel>
-                                <Input placeholder='Stiff' {...register("flex")}/>
-                            </FormControl>
-                            <FormControl isRequired>
-                                <FormLabel>Shaft</FormLabel>
-                                <Input placeholder='Fujikura' {...register("shaft")}/>
-                            </FormControl>
+                        <FormControl isRequired>
+                            <FormLabel>Brand</FormLabel>
+                            <Input placeholder='Taylormade' {...register("brand")}/>
+                        </FormControl>
+                        <FormControl isRequired>
+                            <FormLabel>Model</FormLabel>
+                            <Input placeholder='TS2' {...register("model")}/>
+                        </FormControl>
+                        <FormControl isRequired>
+                            <FormLabel>Club Type</FormLabel>
+                            <Input placeholder='3-Wood' {...register("clubType")}/>
+                        </FormControl>
+                        <FormControl isRequired>
+                            <FormLabel>Flex</FormLabel>
+                            <Input placeholder='Stiff' {...register("flex")}/>
+                        </FormControl>
+                        <FormControl isRequired>
+                            <FormLabel>Shaft</FormLabel>
+                            <Input placeholder='Fujikura' {...register("shaft")}/>
+                        </FormControl>
                     </ModalBody>
 
                     <ModalFooter>
