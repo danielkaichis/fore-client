@@ -2,12 +2,7 @@ export type Settings = {
     theme: string;
 }
 
-export type ClubType = {
-    name: string;
-    value: number;
-}
-
-export type ClubResponseDTO = {
+export type Club = {
     brand: string;
     model: string;
     clubType: string;
@@ -68,7 +63,7 @@ export type HandicapHistory = {
 }
 
 export type User = {
-    clubs: ClubType[];
+    clubs: Club[];
     staredCourses: string[];
     games: Game[];
     handicap: number;

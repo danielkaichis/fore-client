@@ -1,22 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Tooltip, Center, Icon } from "@chakra-ui/react";
 import useAuth from "../../auth/useAuth";
 import { BiLogInCircle, BiLogOutCircle } from "react-icons/bi";
-import { onAuthStateChanged } from "firebase/auth";
 
 const AuthButton = (): React.ReactElement => {
-    const { auth, handleAuthAction } = useAuth();
-    const [ loggedIn, setLoggedIn ] = useState<boolean>(auth.currentUser != null);
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setLoggedIn(true);
-            } else {
-                setLoggedIn(false);
-            }
-        });
-    }, [auth]);
+    const { loggedIn, handleAuthAction } = useAuth();
 
     return(
         <Tooltip hasArrow label={loggedIn ? "Sign Out" : "Login"} bg='black' color='white' placement="right" borderRadius={4}>

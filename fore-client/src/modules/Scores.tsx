@@ -1,8 +1,11 @@
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import React from "react";
 import { Game } from "../types/fore";
+import { gql, useQuery } from "@apollo/client";
+import { getAuth } from "firebase/auth";
 
 const Scores = (): React.ReactElement => {
+    const auth = getAuth();
     const games: Game[] = [
         {
             date: new Date("2022-01-01"),
