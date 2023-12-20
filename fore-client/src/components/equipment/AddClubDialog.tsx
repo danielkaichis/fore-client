@@ -26,7 +26,10 @@ const AddClubDialog = ({show, close}: AddClubProps): React.ReactElement => {
     const [addClub, { data, loading, error }] = useMutation(ADD_CLUB);
 
     function onSubmit(data: any) {
-        addClub({ variables: { userID: auth.currentUser?.uid, club: data as Club }}); 
+        addClub({ variables: { userID: auth.currentUser?.uid, club: data as Club }}).catch((err) => {
+            // TODO: add popup to display error text
+            console.log(err.message);
+        }); 
         close(true);
     };
 

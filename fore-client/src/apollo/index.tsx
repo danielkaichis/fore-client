@@ -20,12 +20,13 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 })
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors) {
-    console.log('graphQLErrors', graphQLErrors);
-  }
-  if (networkError) {
-    console.log('networkError', networkError);
-  }
+  if (graphQLErrors)
+    graphQLErrors.forEach(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      )
+    );
+  if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
 const link = ApolloLink.from([errorLink, httpLink]);
