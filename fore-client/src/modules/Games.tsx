@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Game } from "../types/fore";
 import { gql, useQuery } from "@apollo/client";
 import { getAuth } from "firebase/auth";
-import AddScoreDialog from "../components/scores/AddScoreDialog";
+import AddScoreDialog from "../components/games/AddScoreDialog";
 
 const Scores = (): React.ReactElement => {
     const auth = getAuth();
@@ -87,7 +87,6 @@ const Scores = (): React.ReactElement => {
     //                 length: [375, 350, 325, 300, 275],
     //                 handicap: 5,
     //                 score: 3
-
     //             },
     //             {
     //                 holeNumber: 2,
@@ -125,7 +124,7 @@ const Scores = (): React.ReactElement => {
 
     useEffect(() => {
         if (data) {
-            setGames(data.getClubs);
+           setGames(data.getClubs);
         }
     }, [data]);
 
@@ -154,7 +153,7 @@ const Scores = (): React.ReactElement => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                    { games.map((game: Game) => (
+                    { games && games.map((game: Game) => (
                             <Tr key={game.score + game.date.toUTCString()}>
                                 <Td>{game.date.toUTCString()}</Td>
                                 <Td>{game.course}</Td>
