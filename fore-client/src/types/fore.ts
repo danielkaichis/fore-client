@@ -41,7 +41,7 @@ export type Course = {
     // courseLayout: CourseLayout;
 }
 
-export type CompletedCourse= {
+export type CompletedCourse = {
 
 }
 
