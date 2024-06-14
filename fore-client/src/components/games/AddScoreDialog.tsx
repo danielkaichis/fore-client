@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
 import React from "react";
-import { Game } from "../../types/fore";
+import { Course, Game } from "../../types/fore";
 import useAuth from "../../auth/useAuth";
 import { useForm } from "react-hook-form";
 
@@ -25,7 +25,8 @@ const AddScoreDialog = ({show, close}: AddScoreProps): React.ReactElement => {
     const [addClub] = useMutation(ADD_GAME);
 
     function onSubmit(data: any) {
-        addClub({ variables: { userID: auth.currentUser?.uid, club: data as Game }}).catch((err) => {
+        data.course.name = data.game.course;
+        addClub({ variables: { userID: auth.currentUser?.uid, game: data.game as Game, course: data.course as Course }}).catch((err) => {
             // TODO: add popup to display error text
             console.log(err.message);
         }); 
@@ -42,27 +43,31 @@ const AddScoreDialog = ({show, close}: AddScoreProps): React.ReactElement => {
                     <ModalBody>
                         <FormControl isRequired>
                             <FormLabel>Date</FormLabel>
-                            <Input placeholder='Jan 1' {...register("date")}/>
+                            <Input placeholder='Jan 1, 2024' {...register("game.date")}/>
                         </FormControl>
                         <FormControl isRequired>
                             <FormLabel>Course</FormLabel>
-                            <Input placeholder='Granite' {...register("course")}/>
+                            <Input placeholder='Granite' {...register("game.course")}/>
+                        </FormControl>
+                        <FormControl isRequired>
+                            <FormLabel>Slope</FormLabel>
+                            <Input placeholder='Granite' {...register("course.slope")}/>
+                        </FormControl>
+                        <FormControl isRequired>
+                            <FormLabel>Rating</FormLabel>
+                            <Input placeholder='Granite' {...register("course.courseRtg")}/>
                         </FormControl>
                         <FormControl isRequired>
                             <FormLabel>Holes</FormLabel>
-                            <Input placeholder='18' {...register("holes")}/>
+                            <Input placeholder='9 or 18' {...register("game.holes")}/>
                         </FormControl>
                         <FormControl isRequired>
                             <FormLabel>Tee</FormLabel>
-                            <Input placeholder='blue' {...register("teeBox")}/>
+                            <Input placeholder='Blue' {...register("game.teeBox")}/>
                         </FormControl>
                         <FormControl isRequired>
                             <FormLabel>Score</FormLabel>
-                            <Input placeholder='72' {...register("score")}/>
-                        </FormControl>
-                        <FormControl isRequired>
-                            <FormLabel>Scorecard?</FormLabel>
-                            <Input placeholder='idk' {...register("idk")}/>
+                            <Input placeholder='72' {...register("game.score")}/>
                         </FormControl>
                     </ModalBody>
                     <ModalFooter>
