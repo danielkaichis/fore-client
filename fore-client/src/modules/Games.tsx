@@ -1,6 +1,6 @@
 import { Button, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Game } from "../types/fore";
+import { Course, Game } from "../types/fore";
 import { gql, useQuery } from "@apollo/client";
 import { getAuth } from "firebase/auth";
 import AddScoreDialog from "../components/games/AddScoreDialog";
@@ -9,6 +9,7 @@ const Scores = (): React.ReactElement => {
     const auth = getAuth();
     const [ showAddScoreDialog, setShowAddScoreDialog ] = useState(false);
     const [ games, setGames ] = useState<Game[]>([]);
+    const [ courses, setCourses ] = useState<Course[]>([]); 
 
     // const games: Game[] = [
     //     {
@@ -118,15 +119,49 @@ const Scores = (): React.ReactElement => {
             }
         }
     `;
-    const { data, loading, error, refetch} = useQuery(GET_GAMES, {
+    const { data: gameData, loading: gamesLoading, error: gamesError, refetch} = useQuery(GET_GAMES, {
         variables: { userID: auth.currentUser?.uid },
     });
 
-    useEffect(() => {
-        if (data) {
-           setGames(data.getClubs);
+    const GET_COURSES = gql`
+        query getCourses($userID: String!) {
+            getCourses(userID: $userID) {
+                name
+                teeBoxes {
+                    name
+                    slope
+                    courseRtg
+                    length
+                }
+                address {
+                    city
+                    country
+                }
+                scorecard {
+                    holeNumber
+                    par
+                    teeLengths {
+                        key
+                        value
+                    }
+                    handicap
+                }
+            }
         }
-    }, [data]);
+    `;
+    const { data: courseData, loading: coursesLoading, error: coursesError } = useQuery(GET_COURSES, {
+        variables: { userID: auth.currentUser?.uid },
+    });
+
+
+    useEffect(() => {
+        if (gameData) {
+           setGames(gameData.getGames);
+        }
+        if (courseData) {
+            setCourses(courseData.getCourses);
+        }
+    }, [gameData, courseData]);
 
     function closeDialog(addedScore: boolean) {
         setShowAddScoreDialog(false);
@@ -136,7 +171,7 @@ const Scores = (): React.ReactElement => {
     return (
         <div>
             <Button colorScheme="blue" onClick={() => setShowAddScoreDialog(true)}>Add Score</Button>
-            {showAddScoreDialog ? <AddScoreDialog show={showAddScoreDialog} close={(addedScore) => closeDialog(addedScore)}/> : ''}
+            {showAddScoreDialog ? <AddScoreDialog courses={courses} show={showAddScoreDialog} close={(addedScore) => closeDialog(addedScore)}/> : ''}
             <TableContainer verticalAlign="top" height="100%">
                 <Table variant="simple">
                     <Thead>
