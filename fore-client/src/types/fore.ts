@@ -48,7 +48,7 @@ export type CompletedCourse = {
 export type Game = {
     date: Date;
     // change to { name: string, length: number, courseRating: number, slope: number } once connected to db
-    course: string[];
+    course: string;
     holes: 9 | 18;
     teeBox: string;
     score: number;

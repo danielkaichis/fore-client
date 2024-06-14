@@ -22,7 +22,6 @@ const AddScoreDialog = ({show, close}: AddScoreProps): React.ReactElement => {
         }
     `;
 
-
     const [addClub] = useMutation(ADD_GAME);
 
     function onSubmit(data: any) {
@@ -42,27 +41,30 @@ const AddScoreDialog = ({show, close}: AddScoreProps): React.ReactElement => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <ModalBody>
                         <FormControl isRequired>
-                            <FormLabel>Brand</FormLabel>
-                            <Input placeholder='Taylormade' {...register("brand")}/>
+                            <FormLabel>Date</FormLabel>
+                            <Input placeholder='Jan 1' {...register("date")}/>
                         </FormControl>
                         <FormControl isRequired>
-                            <FormLabel>Model</FormLabel>
-                            <Input placeholder='TS2' {...register("model")}/>
+                            <FormLabel>Course</FormLabel>
+                            <Input placeholder='Granite' {...register("course")}/>
                         </FormControl>
                         <FormControl isRequired>
-                            <FormLabel>Club Type</FormLabel>
-                            <Input placeholder='3-Wood' {...register("clubType")}/>
+                            <FormLabel>Holes</FormLabel>
+                            <Input placeholder='18' {...register("holes")}/>
                         </FormControl>
                         <FormControl isRequired>
-                            <FormLabel>Flex</FormLabel>
-                            <Input placeholder='Stiff' {...register("flex")}/>
+                            <FormLabel>Tee</FormLabel>
+                            <Input placeholder='blue' {...register("teeBox")}/>
                         </FormControl>
                         <FormControl isRequired>
-                            <FormLabel>Shaft</FormLabel>
-                            <Input placeholder='Fujikura' {...register("shaft")}/>
+                            <FormLabel>Score</FormLabel>
+                            <Input placeholder='72' {...register("score")}/>
+                        </FormControl>
+                        <FormControl isRequired>
+                            <FormLabel>Scorecard?</FormLabel>
+                            <Input placeholder='idk' {...register("idk")}/>
                         </FormControl>
                     </ModalBody>
-
                     <ModalFooter>
                         <Button colorScheme='blue' mr={3} onClick={() => close(false)}>
                         Close
