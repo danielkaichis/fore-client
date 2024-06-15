@@ -127,6 +127,7 @@ const Scores = (): React.ReactElement => {
         query getCourses($userID: String!) {
             getCourses(userID: $userID) {
                 name
+                par
                 teeBoxes {
                     name
                     slope
@@ -161,11 +162,42 @@ const Scores = (): React.ReactElement => {
         if (courseData) {
             setCourses(courseData.getCourses);
         }
-    }, [gameData, courseData]);
+    }, [gameData, courseData, gamesLoading]);
 
-    function closeDialog(addedScore: boolean) {
+    async function closeDialog(addedScore: boolean) {
         setShowAddScoreDialog(false);
+        // TODO: fix chart not updating after adding score
         if (addedScore) refetch();
+    }
+
+    function getTeeLength(game: Game): number {
+        let course = courses.find((course) => course.name === game.course);
+        if (course) {
+            let teeBox = course.teeBoxes.find((teeBox) => teeBox.name === game.teeBox);
+            if (teeBox) {
+                return teeBox.length;
+            }
+        }
+        return 0;
+    }
+
+    function getSlopeAndRating(game: Game): string {
+        let course = courses.find((course) => course.name === game.course);
+        if (course) {
+            let teeBox = course.teeBoxes.find((teeBox) => teeBox.name === game.teeBox);
+            if (teeBox) {
+                return `${teeBox.courseRtg}/${teeBox.slope}`;
+            }
+        }
+        return '';
+    }
+
+    function getPar(game: Game): number {
+        let course = courses.find((course) => course.name === game.course);
+        if (course) {
+            return course.par;
+        }
+        return 0;
     }
 
     return (
@@ -178,26 +210,28 @@ const Scores = (): React.ReactElement => {
                         <Tr>
                             <Th>Date</Th>
                             <Th>Course</Th>
-                            <Th>Tee</Th>
+                            <Th>Holes</Th>
+                            <Th>Tees</Th>
                             <Th>Yds</Th>
                             <Th>Rating/Slope</Th>
                             <Th>Score</Th>
                             <Th>Par</Th>
-                            <Th>HCI</Th>
+                            <Th>Diff</Th>
                             <Th>Included in Handicap</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
                     { games && games.map((game: Game) => (
-                            <Tr key={game.score + game.date.toUTCString()}>
-                                <Td>{game.date.toUTCString()}</Td>
+                            <Tr key={game.score + game.date}>
+                                <Td>{new Date(game.date).toLocaleDateString()}</Td>
                                 <Td>{game.course}</Td>
+                                <Td>{game.holes}</Td>
                                 <Td>{game.teeBox}</Td>
-                                <Td>349 yds</Td>
-                                <Td>76/144</Td>
+                                <Td>{getTeeLength(game)}</Td>
+                                <Td>{getSlopeAndRating(game)}</Td>
                                 <Td>{game.score}</Td>
-                                <Td>72</Td>
-                                <Td>{game.handicapDifferential}</Td>
+                                <Td>{getPar(game)}</Td>
+                                <Td>{parseFloat(game.handicapDifferential.toFixed(1))}</Td>
                                 {/* TODO: calculate this based on handicap card */}
                                 <Td>yes</Td>
                             </Tr>

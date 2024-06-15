@@ -37,6 +37,7 @@ export type TeeBox = {
 
 export type Course = {
     name: string;
+    par: number;
     teeBoxes: TeeBox[];
     address: Address;
     scorecard: Hole[]; // array of 18 holes
@@ -46,9 +47,9 @@ export type Course = {
 }
 
 export type Game = {
-    date: Date;
+    date: string;
     course: string;
-    holes: 9 | 18;
+    holes: string; // "9" | "18";
     teeBox: string;
     score: number;
     handicapDifferential: number;

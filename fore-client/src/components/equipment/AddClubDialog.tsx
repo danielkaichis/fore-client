@@ -15,13 +15,12 @@ const AddClubDialog = ({show, close}: AddClubProps): React.ReactElement => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const ADD_CLUB = gql`
-        mutation addClub($userID: String!, $club: ClubRequestDTO!) {
+        mutation addClub($userID: String!, $club: ClubInput!) {
             addClub(userID: $userID, club: $club) {
                 model
             }
         }
     `;
-
 
     const [addClub, { data, loading, error }] = useMutation(ADD_CLUB);
 
