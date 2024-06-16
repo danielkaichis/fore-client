@@ -1,24 +1,24 @@
-import { ApolloClient, ApolloLink, HttpLink, InMemoryCache, concat } from "@apollo/client";
+import { ApolloClient, HttpLink, InMemoryCache, from } from "@apollo/client";
+import { setContext } from '@apollo/client/link/context';
 import { SERVER_URL } from "../utils/secrets";
-import useAuth from "../auth/useAuth";
+import { getAuth } from "firebase/auth";
 import { onError } from "@apollo/client/link/error";
 
 const httpLink = new HttpLink({ uri: SERVER_URL + 'graphql' });
 
-const authMiddleware = new ApolloLink((operation, forward) => {
-  // add the authorization to the headers
-  const user = useAuth().auth.currentUser;
-  const token =  user?.getIdToken()
-  operation.setContext(({ headers = {} }) => ({
+const authLink = setContext(async (_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = await getAuth().currentUser?.getIdToken() || '';
+  // return the headers to the context so httpLink can read them
+  return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : ''
+      authorization: token ? `Bearer ${token}` : "",
     }
-  }));
+  }
+});
 
-  return forward(operation);
-})
-
+// Log any GraphQL errors or network error that occurred
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ message, locations, path }) =>
@@ -29,12 +29,9 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
-const link = ApolloLink.from([errorLink, httpLink]);
-
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  // link: concat(authMiddleware, httpLink),
-  link,
+  link: from([authLink, errorLink, httpLink])
 });
 
 export { client };
