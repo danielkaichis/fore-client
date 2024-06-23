@@ -54,12 +54,7 @@ export type Game = {
     score: number;
     handicapDifferential: number;
     scorecard: CompletedHole[];
-}
-
-// TODO: keep only values needed for handicap calculation
-// this will only store last 20 rounds
-export type HandicapHistory = {
-    
+    includedInHandicap: boolean;
 }
 
 export type User = {
@@ -67,5 +62,4 @@ export type User = {
     staredCourses: string[];
     games: Game[];
     handicap: number;
-    handicapHistory: HandicapHistory[];
 }

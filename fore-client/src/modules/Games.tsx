@@ -4,118 +4,28 @@ import { Course, Game } from "../types/fore";
 import { gql, useQuery } from "@apollo/client";
 import { getAuth } from "firebase/auth";
 import AddScoreDialog from "../components/games/AddScoreDialog";
+import { set } from "react-hook-form";
 
 const Scores = (): React.ReactElement => {
     const auth = getAuth();
     const [ showAddScoreDialog, setShowAddScoreDialog ] = useState(false);
     const [ games, setGames ] = useState<Game[]>([]);
+    const [ handicap, setHandicap ] = useState<number>(NaN);
     const [ courses, setCourses ] = useState<Course[]>([]); 
-
-    // const games: Game[] = [
-    //     {
-    //         date: new Date("2022-01-01"),
-    //         course: ["Pebble Beach"],
-    //         holes: 18,
-    //         teeBox: "Blue",
-    //         score: 85,
-    //         handicapDifferential: 12.4,
-    //         scorecard: [
-    //             {
-    //                 holeNumber: 1,
-    //                 par: 4,
-    //                 length: [350, 325, 300, 275, 250],
-    //                 handicap: 7,
-    //                 score: 4
-    //             },
-    //             {
-    //                 holeNumber: 2,
-    //                 par: 3,
-    //                 length: [200, 175, 150, 125, 100],
-    //                 handicap: 17,
-    //                 score: 3
-    //             },
-    //             {
-    //                 holeNumber: 3,
-    //                 par: 5,
-    //                 length: [550, 525, 500, 475, 450],
-    //                 handicap: 3,
-    //                 score: 5
-    //             },
-    //         ]
-    //     },
-    //     {
-    //         date: new Date("2022-01-02"),
-    //         course: ["Augusta National"],
-    //         holes: 18,
-    //         teeBox: "White",
-    //         score: 78,
-    //         handicapDifferential: 3.2,
-    //         scorecard: [
-    //             {
-    //                 holeNumber: 1,
-    //                 par: 4,
-    //                 length: [455, 430, 405, 380, 355],
-    //                 handicap: 9,
-    //                 score: 3
-    //             },
-    //             {
-    //                 holeNumber: 2,
-    //                 par: 5,
-    //                 length: [575, 550, 525, 500, 475],
-    //                 handicap: 1,
-    //                 score: 6
-    //             },
-    //             {
-    //                 holeNumber: 3,
-    //                 par: 4,
-    //                 length: [350, 325, 300, 275, 250],
-    //                 handicap: 13,
-    //                 score: 4,
-    //             },
-    //         ]
-    //     },
-    //     {
-    //         date: new Date("2022-01-03"),
-    //         course: ["St. Andrews"],
-    //         holes: 18,
-    //         teeBox: "Black",
-    //         score: 90,
-    //         handicapDifferential: 16.5,
-    //         scorecard: [
-    //             {
-    //                 holeNumber: 1,
-    //                 par: 4,
-    //                 length: [375, 350, 325, 300, 275],
-    //                 handicap: 5,
-    //                 score: 3
-    //             },
-    //             {
-    //                 holeNumber: 2,
-    //                 par: 3,
-    //                 length: [175, 150, 125, 100, 75],
-    //                 handicap: 15,
-    //                 score: 4
-    //             },
-    //             {
-    //                 holeNumber: 3,
-    //                 par: 5,
-    //                 length: [570, 545, 520, 495, 470],
-    //                 handicap: 1,
-    //                 score: 4
-    //             },
-    //         ]
-    //     }
-    // ];
 
     const GET_GAMES = gql`
         query getGames($userID: String!) {
             getGames(userID: $userID) {
-                date
-                course
-                holes
-                teeBox
-                score
-                handicapDifferential
+                games { 
+                    date
+                    course
+                    holes
+                    teeBox
+                    score
+                    handicapDifferential
+                    includedInHandicap
+                }
+                handicap
             }
         }
     `;
@@ -156,8 +66,13 @@ const Scores = (): React.ReactElement => {
 
 
     useEffect(() => {
-        if (gameData) {
-           setGames(gameData.getGames);
+        if (gameData && !gamesLoading) {
+            // convert to array of Game
+            const sortedGames = JSON.parse(JSON.stringify(gameData.getGames.games)).sort((a: Game, b: Game) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            setGames(sortedGames);
+            if (gameData.getGames.handicap && gameData.getGames.games.length >= 20 ) {
+                setHandicap(gameData.getGames.handicap);
+            }
         }
         if (courseData) {
             setCourses(courseData.getCourses);
@@ -200,10 +115,23 @@ const Scores = (): React.ReactElement => {
         return 0;
     }
 
+    function getIncludedInHandicap(game: Game): boolean {
+
+        const gamesCopy = JSON.parse(JSON.stringify(games));
+        if (gamesCopy.splice(0, 20).sort((a: Game, b: Game) => a.handicapDifferential - b.handicapDifferential)
+            .splice(0, 8).map((game: Game) => JSON.stringify(game)).includes(JSON.stringify(game))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     return (
         <div>
             <Button colorScheme="blue" onClick={() => setShowAddScoreDialog(true)}>Add Score</Button>
             {showAddScoreDialog ? <AddScoreDialog courses={courses} show={showAddScoreDialog} close={(addedScore) => closeDialog(addedScore)}/> : ''}
+            <p>Handicap: {handicap ? handicap?.toFixed(1): "You must play at least 20 rounds to calculate a handicap"}</p>
             <TableContainer verticalAlign="top" height="100%">
                 <Table variant="simple">
                     <Thead>
@@ -223,7 +151,7 @@ const Scores = (): React.ReactElement => {
                     <Tbody>
                     { games && games.map((game: Game) => (
                             <Tr key={game.score + game.date}>
-                                <Td>{new Date(game.date).toLocaleDateString()}</Td>
+                                <Td>{game.date}</Td>
                                 <Td>{game.course}</Td>
                                 <Td>{game.holes}</Td>
                                 <Td>{game.teeBox}</Td>
@@ -232,8 +160,7 @@ const Scores = (): React.ReactElement => {
                                 <Td>{game.score}</Td>
                                 <Td>{getPar(game)}</Td>
                                 <Td>{parseFloat(game.handicapDifferential.toFixed(1))}</Td>
-                                {/* TODO: calculate this based on handicap card */}
-                                <Td>yes</Td>
+                                <Td>{handicap && getIncludedInHandicap(game) ? "✅" : "❌"}</Td>
                             </Tr>
                         ))
                     }
