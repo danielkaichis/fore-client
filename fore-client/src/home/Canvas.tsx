@@ -1,4 +1,4 @@
-import { Box, Center, calc } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 const Canvas = (props: { children: any; }): React.ReactElement => {

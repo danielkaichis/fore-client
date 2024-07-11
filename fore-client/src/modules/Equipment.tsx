@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Wrap, WrapItem, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Wrap, WrapItem } from "@chakra-ui/react";
 
 import Club from "../components/equipment/Club";
 import { Club as ClubType } from "../types/fore";
@@ -33,7 +33,7 @@ const Equipment = (): React.ReactElement => {
     }
 
     useEffect(() => {
-        if (data) {
+        if (data && !loading && !error) {
             setClubs(data.getClubs);
         }
     }, [data]);

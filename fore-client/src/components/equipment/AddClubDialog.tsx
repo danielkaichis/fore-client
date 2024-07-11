@@ -1,5 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
-import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, FormErrorMessage } from "@chakra-ui/react";
+import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay  } from "@chakra-ui/react";
 import React from "react";
 import useAuth from "../../auth/useAuth";
 import { Club } from "../../types/fore";
@@ -12,7 +12,7 @@ type AddClubProps = {
 
 const AddClubDialog = ({show, close}: AddClubProps): React.ReactElement => {
     const { auth } = useAuth();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
 
     const ADD_CLUB = gql`
         mutation addClub($userID: String!, $club: ClubInput!) {
@@ -22,7 +22,7 @@ const AddClubDialog = ({show, close}: AddClubProps): React.ReactElement => {
         }
     `;
 
-    const [addClub, { data, loading, error }] = useMutation(ADD_CLUB);
+    const [addClub] = useMutation(ADD_CLUB);
 
     function onSubmit(data: any) {
         addClub({ variables: { userID: auth.currentUser?.uid, club: data as Club }}).catch((err) => {

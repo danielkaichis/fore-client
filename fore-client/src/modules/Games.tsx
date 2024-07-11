@@ -4,7 +4,6 @@ import { Course, Game } from "../types/fore";
 import { gql, useQuery } from "@apollo/client";
 import { getAuth } from "firebase/auth";
 import AddScoreDialog from "../components/games/AddScoreDialog";
-import { set } from "react-hook-form";
 
 const Scores = (): React.ReactElement => {
     const auth = getAuth();
@@ -66,7 +65,7 @@ const Scores = (): React.ReactElement => {
 
 
     useEffect(() => {
-        if (gameData && !gamesLoading) {
+        if (gameData && !gamesLoading && !gamesError) {
             // convert to array of Game
             const sortedGames = JSON.parse(JSON.stringify(gameData.getGames.games)).sort((a: Game, b: Game) => new Date(b.date).getTime() - new Date(a.date).getTime());
             setGames(sortedGames);
@@ -74,10 +73,10 @@ const Scores = (): React.ReactElement => {
                 setHandicap(gameData.getGames.handicap);
             }
         }
-        if (courseData) {
+        if (courseData && !coursesLoading && !coursesError) {
             setCourses(courseData.getCourses);
         }
-    }, [gameData, courseData, gamesLoading]);
+    }, [gameData, courseData, gamesLoading, coursesLoading, gamesError, coursesError]);
 
     async function closeDialog(addedScore: boolean) {
         setShowAddScoreDialog(false);
@@ -116,7 +115,6 @@ const Scores = (): React.ReactElement => {
     }
 
     function getIncludedInHandicap(game: Game): boolean {
-
         const gamesCopy = JSON.parse(JSON.stringify(games));
         if (gamesCopy.splice(0, 20).sort((a: Game, b: Game) => a.handicapDifferential - b.handicapDifferential)
             .splice(0, 8).map((game: Game) => JSON.stringify(game)).includes(JSON.stringify(game))) {

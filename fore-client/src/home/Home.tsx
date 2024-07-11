@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
   Dashboard,
   Equipment,
-  Scores,
+  Games,
   Courses,
   Leaderboard,
   Sidebar,
@@ -26,7 +26,7 @@ const Home = (): React.ReactElement => {
 						<Routes>
 							<Route path="/" element={<Dashboard />}/>
 							<Route path="/equipment" element={<Equipment />} />
-							<Route path="/scores" element={<Scores />} />
+							<Route path="/games" element={<Games />} />
 							<Route path="/courses" element={<Courses />} />
 							<Route path="/leaderboard" element={<Leaderboard />} />
 						</Routes>

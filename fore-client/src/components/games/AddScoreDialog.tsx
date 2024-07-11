@@ -13,7 +13,7 @@ type AddScoreProps = {
 
 const AddScoreDialog = ({courses, show, close}: AddScoreProps): React.ReactElement => {
     const { auth } = useAuth();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
     const [selectedCourse, setSelectedCourse] = useState('');
     const [teeOptions, setTeeOptions] = useState<TeeBox[]>([]);
 
