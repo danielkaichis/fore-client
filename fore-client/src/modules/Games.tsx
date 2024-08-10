@@ -47,15 +47,6 @@ const Scores = (): React.ReactElement => {
                     city
                     country
                 }
-                scorecard {
-                    holeNumber
-                    par
-                    teeLengths {
-                        key
-                        value
-                    }
-                    handicap
-                }
             }
         }
     `;

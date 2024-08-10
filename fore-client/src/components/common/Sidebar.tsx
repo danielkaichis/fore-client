@@ -38,7 +38,7 @@ const Sidebar = (): React.ReactElement => {
             <Center flexDir="column" alignItems="center" as="nav">
                 <NavItem icon={FaHome} tooltip="Dashboard" redirectTo='/'/>
                 <NavItem icon={FaBook} tooltip="Equipment" redirectTo='/equipment'/>
-                <NavItem icon={MdSportsGolf} tooltip="Scores" redirectTo='/scores'/>
+                <NavItem icon={MdSportsGolf} tooltip="Scores" redirectTo='/games'/>
                 <NavItem icon={TbGolf} tooltip="Courses" redirectTo='/courses'/>
                 <NavItem icon={GiPodiumWinner} tooltip="PGA Leaderboard" redirectTo='/leaderboard'/>
             </Center>
