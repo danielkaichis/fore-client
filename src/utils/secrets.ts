@@ -1,5 +1,6 @@
 export const PORT = process.env.PORT || "";
 export const SERVER_URL = process.env.REACT_APP_SERVER_URL || "";
+export const ENVIRONMENT = process.env.ENVIRONMENT || "";
 
 export const REACT_APP_FIREBASE_API_KEY = process.env.REACT_APP_FIREBASE_API_KEY || "";
 export const REACT_APP_FIREBASE_AUTH_DOMAIN = process.env.REACT_APP_FIREBASE_AUTH_DOMAIN || "";
