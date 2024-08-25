@@ -105,7 +105,7 @@ const AddCourseDialog = ({show, close}: AddCourseProps): React.ReactElement => {
                                   name={`course.teeBoxes.${index}.name`}
                                   control={control}
                                   render={({ field }) => (
-                                    <Input {...field} placeholder="Blue" />
+                                    <Input {...field} isRequired placeholder="Blue" />
                                   )}
                                 />
                               </Box>
@@ -116,7 +116,7 @@ const AddCourseDialog = ({show, close}: AddCourseProps): React.ReactElement => {
                                     name={`course.teeBoxes.${index}.courseRtg`}
                                     control={control}
                                     render={({ field }) => (
-                                      <Input {...field} placeholder="72.2" type="number" />
+                                      <Input {...field} isRequired placeholder="72.2" type="number" />
                                     )}
                                   />
                                 </Box>
@@ -126,7 +126,7 @@ const AddCourseDialog = ({show, close}: AddCourseProps): React.ReactElement => {
                                     name={`course.teeBoxes.${index}.slope`}
                                     control={control}
                                     render={({ field }) => (
-                                      <Input {...field} placeholder="144" type="number" />
+                                      <Input {...field} isRequired placeholder="144" type="number" />
                                     )}
                                   />
                                 </Box>
@@ -137,13 +137,13 @@ const AddCourseDialog = ({show, close}: AddCourseProps): React.ReactElement => {
                                   name={`course.teeBoxes.${index}.length`}
                                   control={control}
                                   render={({ field }) => (
-                                    <Input {...field} placeholder="7104" type="number" />
+                                    <Input {...field} isRequired placeholder="7104" type="number" />
                                   )}
                                 />
                               </Box>
-                              <Button mt={2} colorScheme="red" onClick={() => removeTee(index)}>
+                              { index > 0 ? <Button mt={2} colorScheme="red" onClick={() => removeTee(index)}>
                                 Remove Tee
-                              </Button>
+                              </Button> : <></>}
                             </Stack>
                           </Collapse>        
                         </Box>

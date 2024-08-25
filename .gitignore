@@ -2,4 +2,7 @@
 node_modules
 babel.config.js
 .DS_Store
+.vscode
 .vscode/settings.json
+.vercel
+build
