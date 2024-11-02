@@ -1,9 +1,11 @@
 import { gql, useMutation } from "@apollo/client";
-import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberInput, NumberInputField, Radio, RadioGroup, Select, Stack } from "@chakra-ui/react";
+import { Button, FormControl, FormLabel, HStack, Icon, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberInput, NumberInputField, Radio, RadioGroup, Select, Stack, Tooltip } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Course, Game, TeeBox } from "../../types/fore";
 import useAuth from "../../auth/useAuth";
 import { useForm } from "react-hook-form";
+import { FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 type AddScoreProps = {
     courses: Course[],
@@ -13,6 +15,7 @@ type AddScoreProps = {
 
 const AddScoreDialog = ({courses, show, close}: AddScoreProps): React.ReactElement => {
     const { auth } = useAuth();
+    const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
     const [selectedCourse, setSelectedCourse] = useState('');
     const [teeOptions, setTeeOptions] = useState<TeeBox[]>([]);
@@ -67,9 +70,16 @@ const AddScoreDialog = ({courses, show, close}: AddScoreProps): React.ReactEleme
                         </FormControl>
                         <FormControl isRequired>
                             <FormLabel>Course</FormLabel>
-                            <Select placeholder=' ' {...register("game.course", { onChange: onCourseChange })}>
-                                {courses.map((course: Course) => <option key={course.name} value={course.name}>{course.name}</option> )}
-                            </Select>
+                            <HStack>
+                                <Select placeholder=' ' {...register("game.course", { onChange: onCourseChange })}>
+                                    {courses.map((course: Course) => <option key={course.name} value={course.name}>{course.name}</option> )}
+                                </Select>
+                                <Tooltip hasArrow label="Add Course" placement={"top"}>
+                                    <Button onClick={() => navigate('/courses')}>
+                                        <Icon as={FaPlus}></Icon>
+                                    </Button>
+                                </Tooltip>
+                            </HStack>
                         </FormControl>
                         <FormControl isRequired>
                             <FormLabel>Holes</FormLabel>

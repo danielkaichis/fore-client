@@ -36,7 +36,7 @@ const Equipment = (): React.ReactElement => {
         if (data && !loading && !error) {
             setClubs(data.getClubs);
         }
-    }, [data]);
+    }, [data, loading, error]);
     
     return (
         // TODO: change to use a grid with 14 slots, and put each club into the slots in increasing order,

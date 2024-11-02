@@ -1,4 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
+import { tooltipTheme } from "./components/Tooltip";
 
 const theme = extendTheme({
     styles: {
@@ -8,6 +9,9 @@ const theme = extendTheme({
           color: "gray.800",
         },
       },
+    },
+    components: {
+      Tooltip: tooltipTheme,
     },
 });
   
