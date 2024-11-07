@@ -1,6 +1,6 @@
 import React from "react";
 import { Club as ClubType } from "../../types/fore";
-import { Box, Center } from "@chakra-ui/react";
+import { Box, Center, Stack } from "@chakra-ui/react";
 
 type ClubProps = {
     club: ClubType
@@ -15,12 +15,18 @@ const Club = ({club}: ClubProps): React.ReactElement => {
              height="200px"
              mb={10}
         >
-            <Box height="30px">
-                Image Here
-            </Box>
-            {club.brand}
-            <br/>
-            {club.model}
+            <Stack>
+                <Box height="30px">
+                    Image Here
+                </Box>
+                <Box>
+                {club.brand}
+                <br/>
+                {club.model}
+                <br/>
+                {club.clubType}
+                </Box>
+            </Stack>
         </Center>
     );
 };

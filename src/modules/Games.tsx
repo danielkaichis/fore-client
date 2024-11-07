@@ -28,7 +28,7 @@ const Scores = (): React.ReactElement => {
             }
         }
     `;
-    const { data: gameData, loading: gamesLoading, error: gamesError, refetch} = useQuery(GET_GAMES, {
+    const { data: gameData, loading: gamesLoading, error: gamesError, refetch: refetchGames} = useQuery(GET_GAMES, {
         variables: { userID: auth.currentUser?.uid },
     });
 
@@ -50,7 +50,7 @@ const Scores = (): React.ReactElement => {
             }
         }
     `;
-    const { data: courseData, loading: coursesLoading, error: coursesError } = useQuery(GET_COURSES, {
+    const { data: courseData, loading: coursesLoading, error: coursesError, refetch: refetchCourses} = useQuery(GET_COURSES, {
         variables: { userID: auth.currentUser?.uid },
     });
 
@@ -69,10 +69,16 @@ const Scores = (): React.ReactElement => {
         }
     }, [gameData, courseData, gamesLoading, coursesLoading, gamesError, coursesError]);
 
-    async function closeDialog(addedScore: boolean) {
+
+    function openDialog() {
+        refetchCourses().then(() => {
+            setShowAddScoreDialog(true);
+        });
+    }
+
+    function closeDialog(addedScore: boolean) {
         setShowAddScoreDialog(false);
-        // TODO: fix chart not updating after adding score
-        if (addedScore) refetch();
+        if (addedScore) refetchGames();
     }
 
     function getTeeLength(game: Game): number {
@@ -118,7 +124,7 @@ const Scores = (): React.ReactElement => {
 
     return (
         <div>
-            <Button colorScheme="blue" onClick={() => setShowAddScoreDialog(true)}>Add Score</Button>
+            <Button colorScheme="blue" onClick={() => openDialog()}>Add Score</Button>
             {showAddScoreDialog ? <AddScoreDialog courses={courses} show={showAddScoreDialog} close={(addedScore) => closeDialog(addedScore)}/> : ''}
             <p>Handicap: {handicap ? handicap?.toFixed(1): "You must play at least 20 rounds to calculate a handicap"}</p>
             <TableContainer verticalAlign="top" height="100%">

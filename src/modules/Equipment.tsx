@@ -36,13 +36,13 @@ const Equipment = (): React.ReactElement => {
         if (data && !loading && !error) {
             setClubs(data.getClubs);
         }
-    }, [data]);
+    }, [data, loading, error]);
     
     return (
         // TODO: change to use a grid with 14 slots, and put each club into the slots in increasing order,
         // IE put first club returned in index 0, then 1, etc.
         <Box>
-            <Button onClick={() => setShowAddClubDialog(true)}>Add Club</Button>
+            { clubs.length <= 14 ? <Button onClick={() => setShowAddClubDialog(true)}>Add Club</Button> : <></>}
             <Wrap>
                 { clubs.map((club, i) => (
                     <WrapItem key={i} px={2}>

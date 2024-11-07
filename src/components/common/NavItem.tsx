@@ -24,7 +24,7 @@ const NavItem = ({
     return(
         <Center mt={8} mb={4}>
             <Link to={redirectTo}>
-                <Tooltip hasArrow label={tooltip} bg='black' color='white' placement="right" borderRadius={5}>
+                <Tooltip hasArrow label={tooltip} placement="right">
                     <Center>
                         <Icon color={active ? "white": "#9f9f9f"}
                             _hover={{color: "white"}} 

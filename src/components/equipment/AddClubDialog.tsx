@@ -1,6 +1,12 @@
 import { gql, useMutation } from "@apollo/client";
-import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay  } from "@chakra-ui/react";
-import React from "react";
+import { 
+    Button, FormControl, FormLabel, 
+    HStack, Input, Modal, ModalBody,
+    ModalCloseButton, ModalContent, 
+    ModalFooter, ModalHeader, ModalOverlay,  
+    Select, useToast
+} from "@chakra-ui/react";
+import React, { useState } from "react";
 import useAuth from "../../auth/useAuth";
 import { Club } from "../../types/fore";
 import { useForm } from "react-hook-form";
@@ -13,6 +19,13 @@ type AddClubProps = {
 const AddClubDialog = ({show, close}: AddClubProps): React.ReactElement => {
     const { auth } = useAuth();
     const { register, handleSubmit } = useForm();
+    const toast = useToast()
+    const [clubOptions, setClubOptions] = useState<string[]>([]);
+
+    const clubTypes = ['Metalwood', 'Iron', 'Wedge', 'Putter'];
+    const metalwoods = ['Driver', '3-Wood', '5-Wood', '7-Wood', '3-Hybrid', '5-Hybrid'];
+    const irons = ['1-Iron', '2-Iron', '3-Iron', '4-Iron', '5-Iron', '6-Iron', '7-Iron', '8-Iron', '9-Iron'];
+    const wedges = ['Pitching Wedge', 'Gap Wedge', 'Sand Wedge', 'Lob Wedge', '50 Degree', '52-Degree', '56 Degree', '60-Degree'];
 
     const ADD_CLUB = gql`
         mutation addClub($userID: String!, $club: ClubInput!) {
@@ -26,10 +39,20 @@ const AddClubDialog = ({show, close}: AddClubProps): React.ReactElement => {
 
     function onSubmit(data: any) {
         addClub({ variables: { userID: auth.currentUser?.uid, club: data as Club }}).catch((err) => {
-            // TODO: add popup to display error text
-            console.log(err.message);
+            toast({
+                title: `${err.message}`,
+                status: "error",
+                isClosable: true,
+            });
         }); 
         close(true);
+    };
+
+    const handleClubTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        if (event.target.value === 'Metalwood') setClubOptions(metalwoods);
+        if (event.target.value === 'Iron') setClubOptions(irons);
+        if (event.target.value === 'Wedge') setClubOptions(wedges);
+        if (event.target.value === 'Putter') setClubOptions(['Putter']);
     };
 
     return (
@@ -49,8 +72,19 @@ const AddClubDialog = ({show, close}: AddClubProps): React.ReactElement => {
                             <Input placeholder='TS2' {...register("model")}/>
                         </FormControl>
                         <FormControl isRequired>
-                            <FormLabel>Club Type</FormLabel>
-                            <Input placeholder='3-Wood' {...register("clubType")}/>
+                            <FormLabel>Club</FormLabel>
+                            <HStack>
+                                <Select placeholder='Select Club Type' onChange={handleClubTypeChange}>
+                                    {clubTypes.map((clubType, i) => (
+                                        <option key={i} value={clubType}>{clubType}</option>
+                                    ))}
+                                </Select>
+                                <Select placeholder='Select Club' {...register("clubType")}>
+                                    {clubOptions.map((club, i) => (
+                                        <option key={i} value={club}>{club}</option>
+                                    ))}
+                                </Select>
+                            </HStack>
                         </FormControl>
                         <FormControl isRequired>
                             <FormLabel>Flex</FormLabel>

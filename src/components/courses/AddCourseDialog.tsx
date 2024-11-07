@@ -84,7 +84,7 @@ const AddCourseDialog = ({show, close}: AddCourseProps): React.ReactElement => {
                         <NumberInputField placeholder="72" {...register("course.par", { valueAsNumber: true })} />
                       </NumberInput>
                     </FormControl>
-                    <Box py={4}>
+                    <Box py={3}>
                       {teeFields.map((item, index) => (
                         <Box key={item.id} borderWidth="1px" borderRadius="lg" my={2} px={4} py={2}>
                           <Flex align="center" justify="center">
@@ -141,15 +141,13 @@ const AddCourseDialog = ({show, close}: AddCourseProps): React.ReactElement => {
                                   )}
                                 />
                               </Box>
-                              { index > 0 ? <Button mt={2} colorScheme="red" onClick={() => removeTee(index)}>
-                                Remove Tee
-                              </Button> : <></>}
+                              { index > 0 ? <Button mt={2} colorScheme="red" onClick={() => removeTee(index)}>Remove Tee</Button> : <></>}
                             </Stack>
                           </Collapse>        
                         </Box>
                       ))}
                     </Box>
-                    <Button onClick={() => appendTee({ name: '', slope: '', courseRtg: '', length: '' })}>Add Tee</Button>
+                    <Button width={"100%"} onClick={() => appendTee({ name: '', slope: '', courseRtg: '', length: '' })}>Add Tee</Button>
                   </ModalBody>
                   <ModalFooter>
                     <Button variant='outline' colorScheme='red' mr={3} onClick={() => close(false)}>Cancel</Button>
