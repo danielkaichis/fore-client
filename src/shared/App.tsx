@@ -9,7 +9,7 @@ initializeApp(config.fireBaseConfig);
 
 const App = (): React.ReactElement => {
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider theme={theme} toastOptions={{ defaultOptions: { position: 'top' }}}>
         <Home />
     </ChakraProvider>
   );

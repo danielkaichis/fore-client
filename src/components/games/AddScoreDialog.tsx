@@ -31,11 +31,12 @@ const AddScoreDialog = ({courses, show, close}: AddScoreProps): React.ReactEleme
     const [addGame] = useMutation(ADD_GAME);
 
     function onSubmit(data: any) {
-        addGame({ variables: { userID: auth.currentUser?.uid, game: data.game as Game }}).catch((err) => {
+        addGame({ variables: { userID: auth.currentUser?.uid, game: data.game as Game }}).then(() => {
+            close(true);
+        }).catch((err) => {
             // TODO: add popup to display error text
             console.log(err.message);
-        }); 
-        close(true);
+        });
     };
 
     const onCourseChange = (event: any) => {
