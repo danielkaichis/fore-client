@@ -10,7 +10,7 @@ import { useForm, useFieldArray, Controller } from "react-hook-form";
 
 type AddCourseProps = {
     show: boolean,
-    close: (addedClub: boolean) => void
+    close: (addedCourse: boolean) => void
 };
 
 const AddCourseDialog = ({show, close}: AddCourseProps): React.ReactElement => {
@@ -20,7 +20,9 @@ const AddCourseDialog = ({show, close}: AddCourseProps): React.ReactElement => {
         course: {
           name: '',
           par: '',
-          teeBoxes: [{ name: '', slope: '', courseRtg: '', length: '' }] // Initial structure with 4 subfields
+          teeBoxes: [{ name: '', slope: '', courseRtg: '', length: '' }], // Initial structure with 4 subfields
+          city: '',
+          country: ''
         }
       }
     });
@@ -74,16 +76,28 @@ const AddCourseDialog = ({show, close}: AddCourseProps): React.ReactElement => {
               <ModalCloseButton />
               <form onSubmit={handleSubmit(onSubmit)}>
                   <ModalBody>
-                    <FormControl isRequired>
-                      <FormLabel>Name</FormLabel>
-                      <Input placeholder='Granite' {...register("course.name")}/>
-                    </FormControl>
-                    <FormControl isRequired>
-                      <FormLabel>Par</FormLabel>
-                      <NumberInput>
-                        <NumberInputField placeholder="72" {...register("course.par", { valueAsNumber: true })} />
-                      </NumberInput>
-                    </FormControl>
+                    <HStack>
+                      <FormControl flex={4} isRequired>
+                        <FormLabel>Course Name</FormLabel>
+                        <Input placeholder='Granite' {...register("course.name")}/>
+                      </FormControl>
+                      <FormControl flex={1} isRequired>
+                        <FormLabel>Par</FormLabel>
+                        <NumberInput>
+                          <NumberInputField placeholder="72" {...register("course.par", { valueAsNumber: true })} />
+                        </NumberInput>
+                      </FormControl>
+                    </HStack>
+                    <HStack py={2}>
+                      <FormControl isRequired>
+                        <FormLabel>City</FormLabel>
+                        <Input placeholder='Markham' {...register("course.city")}/>
+                      </FormControl>
+                      <FormControl isRequired>
+                        <FormLabel>Country</FormLabel>
+                        <Input placeholder='Canada' {...register("course.country")}/>
+                      </FormControl>
+                    </HStack>
                     <Box py={3}>
                       {teeFields.map((item, index) => (
                         <Box key={item.id} borderWidth="1px" borderRadius="lg" my={2} px={4} py={2}>
