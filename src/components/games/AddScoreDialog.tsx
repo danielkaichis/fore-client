@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 type AddScoreProps = {
     courses: Course[],
     show: boolean,
-    close: (addedClub: boolean) => void
+    close: (addedScore: boolean) => void
 };
 
 const AddScoreDialog = ({courses, show, close}: AddScoreProps): React.ReactElement => {
@@ -73,7 +73,7 @@ const AddScoreDialog = ({courses, show, close}: AddScoreProps): React.ReactEleme
                             <FormLabel>Course</FormLabel>
                             <HStack>
                                 <Select placeholder=' ' {...register("game.course", { onChange: onCourseChange })}>
-                                    {courses.map((course: Course) => <option key={course.name} value={course.name}>{course.name}</option> )}
+                                    {courses.map((course: Course) => <option key={course.name} value={course.name}>{course.name}, {course.city}</option> )}
                                 </Select>
                                 <Tooltip hasArrow label="Add Course" placement={"top"}>
                                     <Button onClick={() => navigate('/courses')}>

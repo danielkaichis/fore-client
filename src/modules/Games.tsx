@@ -43,10 +43,8 @@ const Scores = (): React.ReactElement => {
                     courseRtg
                     length
                 }
-                address {
-                    city
-                    country
-                }
+                city
+                country
             }
         }
     `;
@@ -103,8 +101,8 @@ const Scores = (): React.ReactElement => {
         return '';
     }
 
-    function getPar(game: Game): number {
-        let course = courses.find((course) => course.name === game.course);
+    function getPar(gameCourse: string): number {
+        let course = courses.find((course) => course.name === gameCourse);
         if (course) {
             return course.par;
         }
@@ -153,7 +151,7 @@ const Scores = (): React.ReactElement => {
                                 <Td>{getTeeLength(game)}</Td>
                                 <Td>{getSlopeAndRating(game)}</Td>
                                 <Td>{game.score}</Td>
-                                <Td>{getPar(game)}</Td>
+                                <Td>{getPar(game.course)}</Td>
                                 <Td>{parseFloat(game.handicapDifferential.toFixed(1))}</Td>
                                 <Td>{handicap && getIncludedInHandicap(game) ? "✅" : "❌"}</Td>
                             </Tr>
