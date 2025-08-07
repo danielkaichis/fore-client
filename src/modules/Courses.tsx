@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Divider, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
+import { Box, Button, Divider, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import AddCourseDialog from "../components/courses/AddCourseDialog"
 import { gql, useQuery } from "@apollo/client";
 import { getAuth } from "firebase/auth";
@@ -59,7 +59,7 @@ const Courses = (): React.ReactElement => {
                 <p><strong>Par:</strong> {course.par}</p>
                 <p><strong>Address:</strong> {course.city}, {course.country}</p>
                 <Divider />
-                <Heading style={{ fontSize: '1rem', fontWeight: '600', marginTop: '0.5rem' }}>Tees</Heading>
+                <Heading fontSize="1rem" fontWeight="600" mt={2}>Tees</Heading>
                 <Stack spacing={2}>
                   {course.teeBoxes.map((teeBox: any) => (
                     <Box
@@ -69,10 +69,10 @@ const Courses = (): React.ReactElement => {
                       borderRadius="lg"
                       bg="gray.50"
                     >
-                      <p style={{ fontWeight: 500 }}>{teeBox.name}</p>
-                      <p style={{ fontSize: '0.875rem' }}>
+                      <Text fontWeight="medium">{teeBox.name}</Text>
+                      <Text fontSize="sm">
                         Slope: {teeBox.slope}, Rtg: {teeBox.courseRtg}, Length: {teeBox.length} yards
-                      </p>
+                      </Text>
                     </Box>
                   ))}
                 </Stack>
