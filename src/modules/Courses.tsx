@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "@chakra-ui/react";
+import { Box, Button, Divider, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
 import AddCourseDialog from "../components/courses/AddCourseDialog"
 import { gql, useQuery } from "@apollo/client";
 import { getAuth } from "firebase/auth";
@@ -42,26 +42,44 @@ const Courses = (): React.ReactElement => {
       <Button colorScheme="blue" onClick={() => setShowAddCourseDialog(true)}>Add Course</Button>
       {showAddCourseDialog ? <AddCourseDialog show={showAddCourseDialog} close={(addedCourse) => closeDialog(addedCourse)}/> : ''}
       <h1>Courses</h1>
-      {coursesLoading && <p>Loading...</p>}
+      {coursesLoading && !coursesError && <p>Loading...</p>}
       {coursesError && <p>Error loading courses: {coursesError.message}</p>}
-      {courseData && courseData.getCourses && courseData.getCourses.length > 0 ?
-        <ul>
+      {!coursesLoading && courseData && courseData.getCourses && courseData.getCourses.length > 0 ?
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
           {courseData.getCourses.map((course: any) => (
-            <li key={course.name}>
-              <h2>{course.name}</h2>
-              <p>Par: {course.par}</p>
-              <p>Address: {course.city}, {course.country}</p>
-              <h3>Tee Boxes:</h3>
-              <ul>
-                {course.teeBoxes.map((teeBox: any) => (
-                  <li key={teeBox.name}>
-                    {teeBox.name} - Slope: {teeBox.slope}, Course Rating: {teeBox.courseRtg}, Length: {teeBox.length} yards
-                  </li>
-                ))}
-              </ul>
-            </li>
+            <Box
+              key={course.name}
+              p={5}
+              borderWidth="1px"
+              borderRadius="2xl"
+              boxShadow="md"
+            >
+              <Stack spacing={3}>
+                <Heading size="md">{course.name}</Heading>
+                <p><strong>Par:</strong> {course.par}</p>
+                <p><strong>Address:</strong> {course.city}, {course.country}</p>
+                <Divider />
+                <Heading style={{ fontSize: '1rem', fontWeight: '600', marginTop: '0.5rem' }}>Tees</Heading>
+                <Stack spacing={2}>
+                  {course.teeBoxes.map((teeBox: any) => (
+                    <Box
+                      key={teeBox.name}
+                      p={3}
+                      borderWidth="1px"
+                      borderRadius="lg"
+                      bg="gray.50"
+                    >
+                      <p style={{ fontWeight: 500 }}>{teeBox.name}</p>
+                      <p style={{ fontSize: '0.875rem' }}>
+                        Slope: {teeBox.slope}, Rtg: {teeBox.courseRtg}, Length: {teeBox.length} yards
+                      </p>
+                    </Box>
+                  ))}
+                </Stack>
+              </Stack>
+            </Box>
           ))}
-        </ul>
+        </SimpleGrid>
         : <p>No courses found.</p>
       }
     </div>
