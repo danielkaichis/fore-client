@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="200" viewBox="0 0 120 200">
+  <defs>
+    <linearGradient id="shaft" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#aeb4bb"/>
+      <stop offset="0.45" stop-color="#e8ebef"/>
+      <stop offset="1" stop-color="#878d95"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dde1e5"/>
+      <stop offset="1" stop-color="#a2a9b2"/>
+    </linearGradient>
+  </defs>
+  <!-- grip -->
+  <line x1="62" y1="8" x2="62" y2="34" stroke="#2b2f36" stroke-width="9" stroke-linecap="round"/>
+  <!-- shaft -->
+  <line x1="62" y1="30" x2="62" y2="134" stroke="url(#shaft)" stroke-width="5" stroke-linecap="round"/>
+  <!-- plumber neck into head -->
+  <path d="M 62 132 C 62 142, 58 148, 52 152" stroke="#4a515b" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <!-- head: Anser-style blade -->
+  <path d="M 34 152
+           C 30 152, 28 155, 28 159
+           L 28 166
+           C 28 170, 31 172, 35 172
+           L 86 172
+           C 91 172, 94 169, 94 164
+           L 94 160
+           C 94 155, 91 152, 86 152
+           Z" fill="url(#body)"/>
+  <!-- face -->
+  <line x1="31" y1="155" x2="31" y2="169" stroke="#f2f4f6" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- top sight line -->
+  <line x1="40" y1="155" x2="84" y2="155" stroke="#5f6771" stroke-width="2" stroke-linecap="round"/>
+  <!-- sole -->
+  <line x1="32" y1="171" x2="90" y2="171" stroke="#5f6771" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

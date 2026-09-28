@@ -9,6 +9,7 @@ import {
 import React, { useState } from "react";
 import useAuth from "../../auth/useAuth";
 import { Club } from "../../types/fore";
+import { METALWOODS, IRONS, WEDGES, PUTTERS } from "../../utils/clubImages";
 import { useForm } from "react-hook-form";
 
 type AddClubProps = {
@@ -22,10 +23,7 @@ const AddClubDialog = ({show, close}: AddClubProps): React.ReactElement => {
     const toast = useToast()
     const [clubOptions, setClubOptions] = useState<string[]>([]);
 
-    const clubTypes = ['Metalwood', 'Iron', 'Wedge', 'Putter'];
-    const metalwoods = ['Driver', '3-Wood', '5-Wood', '7-Wood', '3-Hybrid', '5-Hybrid'];
-    const irons = ['1-Iron', '2-Iron', '3-Iron', '4-Iron', '5-Iron', '6-Iron', '7-Iron', '8-Iron', '9-Iron'];
-    const wedges = ['Pitching Wedge', 'Gap Wedge', 'Sand Wedge', 'Lob Wedge', '50 Degree', '52-Degree', '56 Degree', '60-Degree'];
+    const clubTypes = ['Metalwood', 'Iron', 'Wedge', 'Putter'] as const;
 
     const ADD_CLUB = gql`
         mutation addClub($userID: String!, $club: ClubInput!) {
@@ -49,10 +47,10 @@ const AddClubDialog = ({show, close}: AddClubProps): React.ReactElement => {
     };
 
     const handleClubTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        if (event.target.value === 'Metalwood') setClubOptions(metalwoods);
-        if (event.target.value === 'Iron') setClubOptions(irons);
-        if (event.target.value === 'Wedge') setClubOptions(wedges);
-        if (event.target.value === 'Putter') setClubOptions(['Putter']);
+        if (event.target.value === 'Metalwood') setClubOptions([...METALWOODS]);
+        if (event.target.value === 'Iron') setClubOptions([...IRONS]);
+        if (event.target.value === 'Wedge') setClubOptions([...WEDGES]);
+        if (event.target.value === 'Putter') setClubOptions([...PUTTERS]);
     };
 
     return (

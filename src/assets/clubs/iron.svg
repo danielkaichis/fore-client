@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="200" viewBox="0 0 120 200">
+  <defs>
+    <linearGradient id="shaft" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#aeb4bb"/>
+      <stop offset="0.45" stop-color="#e8ebef"/>
+      <stop offset="1" stop-color="#878d95"/>
+    </linearGradient>
+    <linearGradient id="blade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d4d9de"/>
+      <stop offset="1" stop-color="#949ba4"/>
+    </linearGradient>
+  </defs>
+  <!-- grip -->
+  <line x1="95" y1="8" x2="90" y2="34" stroke="#2b2f36" stroke-width="8" stroke-linecap="round"/>
+  <!-- shaft -->
+  <line x1="90" y1="30" x2="81" y2="140" stroke="url(#shaft)" stroke-width="4.5" stroke-linecap="round"/>
+  <!-- hosel -->
+  <line x1="81" y1="138" x2="79" y2="154" stroke="#4a515b" stroke-width="7" stroke-linecap="round"/>
+  <!-- head: thin blade, sloped top line -->
+  <path d="M 79 152
+           C 62 154, 40 160, 25 167
+           C 20 170, 18 176, 20 183
+           C 21 188, 26 191, 32 191
+           L 68 193
+           C 74 193, 79 189, 80 183
+           Z" fill="url(#blade)"/>
+  <!-- face edge -->
+  <path d="M 21 169 C 19 174, 19 179, 20 184" stroke="#f2f4f6" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- grooves -->
+  <line x1="26" y1="173" x2="42" y2="170" stroke="#6d747d" stroke-width="1.2"/>
+  <line x1="27" y1="178" x2="45" y2="175" stroke="#6d747d" stroke-width="1.2"/>
+  <line x1="28" y1="183" x2="47" y2="180" stroke="#6d747d" stroke-width="1.2"/>
+  <!-- sole -->
+  <path d="M 22 188 C 32 192, 56 193, 74 192" stroke="#5b626b" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+</svg>

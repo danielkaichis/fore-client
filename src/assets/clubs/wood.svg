@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="200" viewBox="0 0 120 200">
+  <defs>
+    <linearGradient id="shaft" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#aeb4bb"/>
+      <stop offset="0.45" stop-color="#e8ebef"/>
+      <stop offset="1" stop-color="#878d95"/>
+    </linearGradient>
+    <linearGradient id="crown" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a515c"/>
+      <stop offset="1" stop-color="#1d2229"/>
+    </linearGradient>
+    <linearGradient id="face" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef1f4"/>
+      <stop offset="1" stop-color="#9aa2ac"/>
+    </linearGradient>
+  </defs>
+  <!-- grip -->
+  <line x1="99" y1="8" x2="94" y2="34" stroke="#2b2f36" stroke-width="9" stroke-linecap="round"/>
+  <!-- shaft -->
+  <line x1="94" y1="30" x2="76" y2="132" stroke="url(#shaft)" stroke-width="5" stroke-linecap="round"/>
+  <!-- hosel -->
+  <line x1="76" y1="130" x2="74" y2="143" stroke="#4a515b" stroke-width="8" stroke-linecap="round"/>
+  <!-- head: shallow fairway wood body -->
+  <path d="M 74 143
+           C 81 149, 82 158, 76 164
+           C 68 172, 46 177, 34 174
+           C 23 171, 18 163, 21 155
+           C 24 147, 34 142, 46 141
+           C 58 140, 68 140, 74 143 Z" fill="url(#crown)"/>
+  <!-- shorter face: bright crescent on the leading edge -->
+  <path d="M 27 149
+           C 22 153, 20 160, 22 166
+           C 24 170, 28 173, 33 174
+           C 29 166, 29 155, 33 146
+           C 31 146, 29 147, 27 149 Z" fill="url(#face)"/>
+  <!-- silver sole plate -->
+  <path d="M 34 174 C 46 177, 62 174, 72 167" stroke="#aab1ba" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- crown highlight -->
+  <path d="M 46 141 C 57 140, 68 140, 74 143" stroke="#8d959f" stroke-width="2" fill="none" stroke-linecap="round"/>
+</svg>
